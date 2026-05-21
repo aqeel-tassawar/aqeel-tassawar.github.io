@@ -344,6 +344,17 @@
     .card-cta.studios { background: var(--studios); color: #fff; }
     .card-cta.labs    { background: var(--labs);    color: #000; }
 
+    /* App icon image in card art */
+    .card-art-img {
+      width: 88px;
+      height: 88px;
+      border-radius: 20px;
+      object-fit: cover;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.55);
+    }
+
     /* play store svg icon */
     .play-icon { width: 16px; height: 16px; flex-shrink: 0; }
 
@@ -576,19 +587,20 @@
       <article class="card studios art-realms">
         <div class="card-art">
           <div class="card-art-bg"></div>
-          <div class="card-art-icon">&#9876;</div>
+          <img class="card-art-img" src="/icons/forge-of-realms.png" alt="Forge of Realms icon"/>
         </div>
         <div class="card-body">
-          <p class="card-platform">Android &bull; Strategy RPG</p>
+          <p class="card-platform">Android &bull; Merge Strategy</p>
           <h3 class="card-name">Forge of Realms</h3>
           <p class="card-desc">
-            Build your kingdom, forge alliances and conquer rival realms in this
-            deep mobile strategy experience.
+            Collect shards, iron, runes and legendary items on a 5×5 grid — merge them
+            to higher tiers and deploy your arsenal to defend your castle against
+            escalating waves of enemies and bosses.
           </p>
           <div class="card-tags">
-            <span class="tag">Strategy</span>
+            <span class="tag">Merge</span>
+            <span class="tag">Castle Defence</span>
             <span class="tag">Fantasy</span>
-            <span class="tag">RPG</span>
           </div>
           <a class="card-cta studios"
              href="https://play.google.com/store/apps/details?id=com.forgeofrealms"
@@ -605,18 +617,19 @@
       <article class="card studios art-potion">
         <div class="card-art">
           <div class="card-art-bg"></div>
-          <div class="card-art-icon">&#9880;</div>
+          <img class="card-art-img" src="/icons/potion-forge.png" alt="Potion Forge icon"/>
         </div>
         <div class="card-body">
-          <p class="card-platform">Android &bull; Casual Strategy</p>
+          <p class="card-platform">Android &bull; Puzzle</p>
           <h3 class="card-name">Potion Forge</h3>
           <p class="card-desc">
-            Master the art of alchemy. Combine ingredients, discover rare recipes and
-            build the most legendary potion shop in the land.
+            A satisfying colour-sort puzzle — pour potions between flasks until
+            every tube holds a single colour. With 51+ levels, sealed flasks, move
+            budgets and escalating difficulty, it's a proper brain teaser.
           </p>
           <div class="card-tags">
-            <span class="tag">Alchemy</span>
-            <span class="tag">Crafting</span>
+            <span class="tag">Puzzle</span>
+            <span class="tag">Colour Sort</span>
             <span class="tag">Casual</span>
           </div>
           <a class="card-cta studios"
@@ -634,19 +647,20 @@
       <article class="card studios art-swarm">
         <div class="card-art">
           <div class="card-art-bg"></div>
-          <div class="card-art-icon">&#128027;</div>
+          <img class="card-art-img" src="/icons/swarm-survivors.png" alt="Swarm Survivors icon"/>
         </div>
         <div class="card-body">
-          <p class="card-platform">Android &bull; Action Survival</p>
+          <p class="card-platform">Android &bull; Roguelike Shooter</p>
           <h3 class="card-name">Swarm Survivors</h3>
           <p class="card-desc">
-            Survive relentless waves of enemies. Level up, unlock powerful abilities
-            and fight until the last stand in this addictive bullet-hell survivor.
+            Pick one of 5 ships, mow down alien hordes and level up mid-run with
+            14+ weapons and abilities — multishot, chain lightning, freeze, orbit
+            shields and more. Inspired by Vampire Survivors, built for mobile.
           </p>
           <div class="card-tags">
-            <span class="tag">Survival</span>
-            <span class="tag">Action</span>
-            <span class="tag">Roguelite</span>
+            <span class="tag">Roguelike</span>
+            <span class="tag">Bullet Hell</span>
+            <span class="tag">Space Shooter</span>
           </div>
           <a class="card-cta studios"
              href="https://play.google.com/store/apps/details?id=com.forgestudios.swarmsurvivors"
@@ -690,7 +704,7 @@
       <article class="card labs art-slim">
         <div class="card-art">
           <div class="card-art-bg"></div>
-          <div class="card-art-icon">&#128247;</div>
+          <img class="card-art-img" src="/icons/slimshot.png" alt="SlimShot icon"/>
         </div>
         <div class="card-body">
           <p class="card-platform">Android &bull; Productivity</p>
