@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AQTECH — Forge Studios &amp; Forge Labs</title>
+  <meta name="description" content="AQTECH: Mobile games by Forge Studios and smart utility apps by Forge Labs." />
+  <meta property="og:title" content="AQTECH — Forge Studios &amp; Forge Labs" />
+  <meta property="og:description" content="Independent mobile studio creating games and smart tools for Android." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #070710;
+      --bg-2:        #0d0d1f;
+      --surface:     rgba(255,255,255,0.04);
+      --border:      rgba(255,255,255,0.08);
+      --text:        #e4e4f0;
+      --muted:       #7878a0;
+      --studios:     #FF6C2F;
+      --studios-dim: rgba(255,108,47,0.12);
+      --labs:        #00BFA5;
+      --labs-dim:    rgba(0,191,165,0.12);
+      --brand:       #7C4DFF;
+      --brand-dim:   rgba(124,77,255,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      height: 60px;
+      background: rgba(7,7,16,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      background: linear-gradient(90deg, #a78bff, var(--brand));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 30% 40%, rgba(124,77,255,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 70% 60%, rgba(255,108,47,0.10) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 50% 90%, rgba(0,191,165,0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 50px;
+      background: var(--brand-dim);
+      border: 1px solid rgba(124,77,255,0.3);
+      font-size: 12px;
+      font-weight: 600;
+      color: #a78bff;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: clamp(64px, 12vw, 120px);
+      font-weight: 900;
+      letter-spacing: -4px;
+      line-height: 1;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #ffffff 0%, #a78bff 60%, var(--brand) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 44px;
+      font-weight: 400;
+    }
+    .brand-pills {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .brand-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border-radius: 50px;
+      border: 1px solid;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .brand-pill:hover { transform: translateY(-2px); }
+    .brand-pill.studios {
+      background: rgba(255,108,47,0.1);
+      border-color: rgba(255,108,47,0.4);
+      color: var(--studios);
+      box-shadow: 0 0 0 0 rgba(255,108,47,0.3);
+    }
+    .brand-pill.studios:hover { box-shadow: 0 8px 32px rgba(255,108,47,0.2); }
+    .brand-pill.labs {
+      background: rgba(0,191,165,0.1);
+      border-color: rgba(0,191,165,0.4);
+      color: var(--labs);
+    }
+    .brand-pill.labs:hover { box-shadow: 0 8px 32px rgba(0,191,165,0.2); }
+    .pill-icon { font-size: 18px; }
+
+    /* ── Scroll arrow ── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 500;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ── Sections ── */
+    section.brand-section {
+      padding: 100px 5vw;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 14px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .section-tag.studios { background: var(--studios-dim); color: var(--studios); }
+    .section-tag.labs    { background: var(--labs-dim);    color: var(--labs); }
+    .section-title {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .section-sub {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 56px;
+    }
+
+    /* ── Divider ── */
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0 auto;
+    }
+
+    /* ── Cards grid ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover { transform: translateY(-4px); }
+    .card.studios:hover { border-color: rgba(255,108,47,0.3); box-shadow: 0 20px 60px rgba(255,108,47,0.08); }
+    .card.labs:hover    { border-color: rgba(0,191,165,0.3);   box-shadow: 0 20px 60px rgba(0,191,165,0.08); }
+
+    /* card art strip */
+    .card-art {
+      height: 160px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .card-art-icon {
+      font-size: 56px;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));
+    }
+    .card-art-bg {
+      position: absolute;
+      inset: 0;
+      opacity: 0.9;
+    }
+
+    /* game-specific gradients */
+    .art-realms .card-art-bg  { background: linear-gradient(135deg, #1a0533 0%, #4a1060 40%, #8B2FC9 100%); }
+    .art-potion .card-art-bg  { background: linear-gradient(135deg, #0d2b1a 0%, #1a5c38 40%, #2ecc71 100%); }
+    .art-swarm  .card-art-bg  { background: linear-gradient(135deg, #1a0000 0%, #5c1a00 40%, #cc3700 100%); }
+    .art-slim   .card-art-bg  { background: linear-gradient(135deg, #002419 0%, #004D40 50%, #00695C 100%); }
+
+    /* sparkle overlay */
+    .card-art::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(255,255,255,0.08) 0%, transparent 60%);
+    }
+
+    .card-body {
+      padding: 20px 20px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-platform {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .card-name {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+    .card-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 20px;
+    }
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    .tag {
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(255,255,255,0.06);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .card-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      transition: opacity .2s, transform .15s;
+      margin-top: auto;
+    }
+    .card-cta:active { transform: scale(0.97); }
+    .card-cta:hover { opacity: 0.85; }
+    .card-cta.studios { background: var(--studios); color: #fff; }
+    .card-cta.labs    { background: var(--labs);    color: #000; }
+
+    /* play store svg icon */
+    .play-icon { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* ── Stats bar ── */
+    .stats-bar {
+      display: flex;
+      gap: 0;
+      border-top: 1px solid var(--border);
+    }
+    .stat {
+      flex: 1;
+      padding: 12px 16px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-val {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .stat-lbl {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── About strip ── */
+    .about-strip {
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 5vw;
+    }
+    .about-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .about-text h2 {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .about-text p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .about-brands {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .brand-card {
+      padding: 20px 24px;
+      border-radius: 16px;
+      border: 1px solid;
+    }
+    .brand-card.studios { background: var(--studios-dim); border-color: rgba(255,108,47,0.2); }
+    .brand-card.labs    { background: var(--labs-dim);    border-color: rgba(0,191,165,0.2); }
+    .brand-card-name {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .brand-card.studios .brand-card-name { color: var(--studios); }
+    .brand-card.labs    .brand-card-name { color: var(--labs); }
+    .brand-card p { font-size: 13px; color: var(--muted); }
+
+    /* ── Footer ── */
+    footer {
+      padding: 60px 5vw 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+    }
+    .footer-brand h3 {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      background: linear-gradient(90deg, #a78bff, var(--brand));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+    .footer-brand p { font-size: 13px; color: var(--muted); max-width: 260px; }
+    .footer-col h4 {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color .2s;
+    }
+    .footer-col a:hover { color: var(--text); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: var(--muted);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-bottom a { color: var(--muted); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--text); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      section.brand-section { padding: 70px 20px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .about-inner { grid-template-columns: 1fr; gap: 40px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <a class="nav-brand" href="#">AQTECH</a>
+    <ul class="nav-links">
+      <li><a href="#studios">Forge Studios</a></li>
+      <li><a href="#labs">Forge Labs</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#privacy">Privacy</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <header class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+
+    <div class="hero-badge">
+      <span>&#9670;</span> Independent Mobile Studio
+    </div>
+
+    <h1>AQTECH</h1>
+
+    <p class="hero-sub">
+      Crafting mobile games and smart productivity tools —
+      built with passion, shipped to millions.
+    </p>
+
+    <div class="brand-pills">
+      <a href="#studios" class="brand-pill studios">
+        <span class="pill-icon">&#9876;</span>
+        Forge Studios &mdash; Games
+      </a>
+      <a href="#labs" class="brand-pill labs">
+        <span class="pill-icon">&#9881;</span>
+        Forge Labs &mdash; Utilities
+      </a>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <span>Scroll</span>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M8 3v10M4 9l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </header>
+
+  <!-- ── Forge Studios ── -->
+  <section class="brand-section" id="studios">
+    <div class="section-tag studios">&#9876; Forge Studios</div>
+    <h2 class="section-title">Mobile Games</h2>
+    <p class="section-sub">Strategy, fantasy and survival — available on Android</p>
+
+    <div class="cards-grid">
+
+      <!-- Forge of Realms -->
+      <article class="card studios art-realms">
+        <div class="card-art">
+          <div class="card-art-bg"></div>
+          <div class="card-art-icon">&#9876;</div>
+        </div>
+        <div class="card-body">
+          <p class="card-platform">Android &bull; Strategy RPG</p>
+          <h3 class="card-name">Forge of Realms</h3>
+          <p class="card-desc">
+            Build your kingdom, forge alliances and conquer rival realms in this
+            deep mobile strategy experience.
+          </p>
+          <div class="card-tags">
+            <span class="tag">Strategy</span>
+            <span class="tag">Fantasy</span>
+            <span class="tag">RPG</span>
+          </div>
+          <a class="card-cta studios"
+             href="https://play.google.com/store/apps/details?id=com.forgeofrealms"
+             target="_blank" rel="noopener">
+            <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3.609 1.814L13.792 12 3.61 22.186a.75.75 0 01-1.11-.66V2.474a.75.75 0 011.11-.66zm10.89 8.893l2.84-2.84 3.28 1.9a1.5 1.5 0 010 2.586l-3.28 1.9-2.84-2.84L12.414 12l2.085-1.293z"/>
+            </svg>
+            Play on Google Play
+          </a>
+        </div>
+      </article>
+
+      <!-- Potion Forge -->
+      <article class="card studios art-potion">
+        <div class="card-art">
+          <div class="card-art-bg"></div>
+          <div class="card-art-icon">&#9880;</div>
+        </div>
+        <div class="card-body">
+          <p class="card-platform">Android &bull; Casual Strategy</p>
+          <h3 class="card-name">Potion Forge</h3>
+          <p class="card-desc">
+            Master the art of alchemy. Combine ingredients, discover rare recipes and
+            build the most legendary potion shop in the land.
+          </p>
+          <div class="card-tags">
+            <span class="tag">Alchemy</span>
+            <span class="tag">Crafting</span>
+            <span class="tag">Casual</span>
+          </div>
+          <a class="card-cta studios"
+             href="https://play.google.com/store/apps/details?id=com.forgestudios.potionforge"
+             target="_blank" rel="noopener">
+            <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3.609 1.814L13.792 12 3.61 22.186a.75.75 0 01-1.11-.66V2.474a.75.75 0 011.11-.66zm10.89 8.893l2.84-2.84 3.28 1.9a1.5 1.5 0 010 2.586l-3.28 1.9-2.84-2.84L12.414 12l2.085-1.293z"/>
+            </svg>
+            Play on Google Play
+          </a>
+        </div>
+      </article>
+
+      <!-- Swarm Survivors -->
+      <article class="card studios art-swarm">
+        <div class="card-art">
+          <div class="card-art-bg"></div>
+          <div class="card-art-icon">&#128027;</div>
+        </div>
+        <div class="card-body">
+          <p class="card-platform">Android &bull; Action Survival</p>
+          <h3 class="card-name">Swarm Survivors</h3>
+          <p class="card-desc">
+            Survive relentless waves of enemies. Level up, unlock powerful abilities
+            and fight until the last stand in this addictive bullet-hell survivor.
+          </p>
+          <div class="card-tags">
+            <span class="tag">Survival</span>
+            <span class="tag">Action</span>
+            <span class="tag">Roguelite</span>
+          </div>
+          <a class="card-cta studios"
+             href="https://play.google.com/store/apps/details?id=com.forgestudios.swarmsurvivors"
+             target="_blank" rel="noopener">
+            <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3.609 1.814L13.792 12 3.61 22.186a.75.75 0 01-1.11-.66V2.474a.75.75 0 011.11-.66zm10.89 8.893l2.84-2.84 3.28 1.9a1.5 1.5 0 010 2.586l-3.28 1.9-2.84-2.84L12.414 12l2.085-1.293z"/>
+            </svg>
+            Play on Google Play
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ── Forge Labs ── -->
+  <section class="brand-section" id="labs">
+    <div class="section-tag labs">&#9881; Forge Labs</div>
+    <h2 class="section-title">Utility Apps</h2>
+    <p class="section-sub">Smart tools that make your phone work better</p>
+
+    <div class="cards-grid" style="max-width:420px;">
+
+      <!-- SlimShot -->
+      <article class="card labs art-slim">
+        <div class="card-art">
+          <div class="card-art-bg"></div>
+          <div class="card-art-icon">&#128247;</div>
+        </div>
+        <div class="card-body">
+          <p class="card-platform">Android &bull; Productivity</p>
+          <h3 class="card-name">SlimShot</h3>
+          <p class="card-desc">
+            Smart local photo cleaner. Automatically finds blurry shots, duplicates,
+            dark photos, burst sequences and large videos — so you can reclaim storage
+            without the scroll-and-delete grind.
+          </p>
+          <div class="card-tags">
+            <span class="tag">Free</span>
+            <span class="tag">No Cloud</span>
+            <span class="tag">On-Device</span>
+            <span class="tag">Ad-Free Pro</span>
+          </div>
+          <a class="card-cta labs"
+             href="https://play.google.com/store/apps/details?id=com.forgelabs.slimshot"
+             target="_blank" rel="noopener">
+            <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3.609 1.814L13.792 12 3.61 22.186a.75.75 0 01-1.11-.66V2.474a.75.75 0 011.11-.66zm10.89 8.893l2.84-2.84 3.28 1.9a1.5 1.5 0 010 2.586l-3.28 1.9-2.84-2.84L12.414 12l2.085-1.293z"/>
+            </svg>
+            Get on Google Play
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ── About ── -->
+  <div class="about-strip" id="about">
+    <div class="about-inner">
+      <div class="about-text">
+        <h2>Two brands.<br/>One vision.</h2>
+        <p>
+          AQTECH is an independent mobile developer focused on quality over quantity.
+          Forge Studios creates games that are worth your time. Forge Labs ships utility apps
+          that respect your privacy — all processing happens on-device, nothing leaves your phone.
+        </p>
+        <br/>
+        <p style="color: var(--muted); font-size: 14px;">
+          Questions or feedback? Reach out via the Play Store listing for each app.
+        </p>
+      </div>
+      <div class="about-brands">
+        <div class="brand-card studios">
+          <p class="brand-card-name">&#9876; Forge Studios</p>
+          <p>Mobile games — strategy, fantasy and action survival. Built for long-term engagement without dark patterns.</p>
+        </div>
+        <div class="brand-card labs">
+          <p class="brand-card-name">&#9881; Forge Labs</p>
+          <p>Productivity and utility apps — private by design, built to solve real phone problems without subscriptions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer id="privacy">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>AQTECH</h3>
+        <p>Independent mobile development studio. Games by Forge Studios. Utilities by Forge Labs.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Games</h4>
+        <ul>
+          <li><a href="https://play.google.com/store/apps/details?id=com.forgeofrealms" target="_blank" rel="noopener">Forge of Realms</a></li>
+          <li><a href="https://play.google.com/store/apps/details?id=com.forgestudios.potionforge" target="_blank" rel="noopener">Potion Forge</a></li>
+          <li><a href="https://play.google.com/store/apps/details?id=com.forgestudios.swarmsurvivors" target="_blank" rel="noopener">Swarm Survivors</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Privacy Policies</h4>
+        <ul>
+          <li><a href="/slimshot-privacy.html">SlimShot</a></li>
+          <!-- Add more privacy policy links here as needed -->
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 AQTECH. All rights reserved.</span>
+      <span>Forge Studios &bull; Forge Labs</span>
+    </div>
+  </footer>
+
+</body>
+</html>
