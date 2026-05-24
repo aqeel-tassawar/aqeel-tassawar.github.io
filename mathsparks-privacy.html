@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Maths Sparks: Little Learners</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --coral:   #E8553E;
+      --coral-light: #FCECEA;
+      --blue:    #4FA8D8;
+      --blue-light: #EAF5FB;
+      --gold:    #F5C518;
+      --bg:      #FFF9F7;
+      --text:    #2C2C2C;
+      --muted:   #6B6B6B;
+      --radius:  16px;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(135deg, var(--coral) 0%, #C8402C 100%);
+      color: #fff;
+      padding: 48px 24px 40px;
+      text-align: center;
+    }
+
+    .logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50px;
+      padding: 8px 18px;
+      margin-bottom: 24px;
+    }
+
+    .logo-badge .diamond { font-size: 18px; color: var(--gold); }
+    .logo-badge .brand { font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+
+    .app-icon {
+      width: 80px; height: 80px;
+      background: var(--blue-light);
+      border-radius: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      margin-bottom: 16px;
+      border: 3px solid rgba(255,255,255,0.4);
+    }
+
+    header h1 {
+      font-size: clamp(24px, 5vw, 36px);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    header .subtitle {
+      font-size: 16px;
+      opacity: 0.85;
+      font-weight: 600;
+    }
+
+    .updated-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 13px;
+      margin-top: 14px;
+      font-weight: 600;
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    .intro-card {
+      background: var(--blue-light);
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 36px;
+      font-size: 15px;
+      color: #2a4a5e;
+    }
+
+    .intro-card strong { color: #1a3a4e; }
+
+    /* ── SECTIONS ── */
+    section {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 28px 28px;
+      margin-bottom: 20px;
+      border: 1px solid #F0EAE8;
+      box-shadow: 0 2px 8px rgba(232, 85, 62, 0.06);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .section-icon {
+      width: 42px; height: 42px; min-width: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .icon-coral  { background: var(--coral-light); }
+    .icon-blue   { background: var(--blue-light); }
+    .icon-gold   { background: #FEF9E6; }
+    .icon-green  { background: #EAF7F0; }
+    .icon-purple { background: #F4EEFF; }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--coral);
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 18px 0 8px;
+    }
+
+    p { margin-bottom: 12px; }
+    p:last-child { margin-bottom: 0; }
+
+    ul {
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    ul li {
+      margin-bottom: 6px;
+    }
+
+    .highlight-box {
+      background: var(--coral-light);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-top: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #8B2E1B;
+    }
+
+    .highlight-box.blue {
+      background: var(--blue-light);
+      color: #1a3a4e;
+    }
+
+    .highlight-box.gold {
+      background: #FEF9E6;
+      color: #7A5800;
+    }
+
+    a {
+      color: var(--coral);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    /* ── CONTACT SECTION ── */
+    .contact-section {
+      background: linear-gradient(135deg, var(--coral) 0%, #C8402C 100%);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .contact-section h2 { color: #fff; }
+    .contact-section p { opacity: 0.9; }
+
+    .contact-email {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border: 2px solid rgba(255,255,255,0.4);
+      border-radius: 10px;
+      padding: 10px 22px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 12px;
+      text-decoration: none;
+    }
+
+    .contact-email:hover {
+      background: rgba(255,255,255,0.3);
+      text-decoration: none;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 24px 20px 40px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    footer .diamond { color: var(--gold); font-size: 16px; }
+
+    @media (max-width: 480px) {
+      section { padding: 20px 18px; }
+      header { padding: 36px 16px 30px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-badge">
+    <span class="diamond">◆</span>
+    <span class="brand">Forge Academy · AQTECH</span>
+    <span class="diamond">◆</span>
+  </div>
+  <div class="app-icon">🔢</div>
+  <h1>Maths Sparks: Little Learners</h1>
+  <p class="subtitle">Privacy Policy</p>
+  <div class="updated-badge">Last updated: May 2026</div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main>
+
+  <div class="intro-card">
+    <strong>Our promise to you:</strong> Maths Sparks: Little Learners is designed for young children and their families. We take privacy — especially children's privacy — extremely seriously. This policy explains clearly and honestly exactly how the app works and what data, if any, is involved.
+  </div>
+
+  <!-- 1. ABOUT THE APP -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon icon-coral">🌟</div>
+      <h2>About the App</h2>
+    </div>
+    <p>
+      <strong>Maths Sparks: Little Learners</strong> is a fun, interactive maths app created by <strong>AQTECH / Forge Academy</strong> for nursery and early years children (ages 2–6). It covers counting, shapes, patterns, size, addition, time, money, and position through age-appropriate activities.
+    </p>
+    <p>
+      The app is designed to be used by young children with parental guidance. <strong>No account or sign-up is required</strong> to use the app.
+    </p>
+  </section>
+
+  <!-- 2. INFORMATION WE COLLECT -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon icon-blue">🔍</div>
+      <h2>Information We Collect</h2>
+    </div>
+
+    <h3>What we do NOT collect</h3>
+    <ul>
+      <li>No names, email addresses, or personal details</li>
+      <li>No photos, audio recordings, or camera access</li>
+      <li>No location data</li>
+      <li>No contacts or device contacts</li>
+      <li>No social media account data</li>
+      <li>No data that could identify a child personally</li>
+    </ul>
+
+    <h3>What is stored locally on your device</h3>
+    <p>
+      The app saves your child's <strong>progress and completed levels</strong> directly on your device using local storage (Hive). This data never leaves the device — it is not uploaded to any server, and it is deleted if you uninstall the app.
+    </p>
+
+    <div class="highlight-box blue">
+      Progress data stays on your device only. We cannot access it, and we do not transmit it.
+    </div>
+  </section>
+
+  <!-- 3. FIREBASE / CLOUD SERVICES -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon icon-blue">☁️</div>
+      <h2>Firebase &amp; Cloud Content</h2>
+    </div>
+    <p>
+      The app uses <strong>Google Firebase Firestore</strong> to download question content (maths activities, rounds, and packs) when you first open the app. This content is cached on-device for use offline thereafter.
+    </p>
+    <p>
+      When the app fetches content from Firestore, Google may log standard server-side information (such as IP address and device type) as part of normal internet infrastructure operation. This is governed by <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.
+    </p>
+    <p>
+      We do <strong>not</strong> store any user-specific data in Firestore — only the shared maths question content that all users receive.
+    </p>
+    <div class="highlight-box">
+      No child data is ever written to Firebase. Firestore is read-only from the app's perspective.
+    </div>
+  </section>
+
+  <!-- 4. ADVERTISING -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon icon-gold">📢</div>
+      <h2>Advertising (AdMob)</h2>
+    </div>
+    <p>
+      The free version of Maths Sparks: Little Learners displays banner advertisements served by <strong>Google AdMob</strong>. Ads are shown to support free access to the app.
+    </p>
+    <h3>Child-directed treatment</h3>
+    <p>
+      We have configured AdMob to serve <strong>non-personalised, child-directed ads only</strong>. This means:
+    </p>
+    <ul>
+      <li>Ads are not targeted based on personal data or browsing history</li>
+      <li>Interest-based advertising is disabled for all users of this app</li>
+      <li>Ad content is appropriate for a general / children's audience</li>
+    </ul>
+    <p>
+      AdMob may collect certain non-personally-identifiable technical data (such as device type and ad impression data) as described in <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a> and <a href="https://support.google.com/admob/answer/6128543" target="_blank" rel="noopener">AdMob's data use policies</a>.
+    </p>
+    <div class="highlight-box gold">
+      Removing all ads permanently is available as part of our premium upgrade within the app.
+    </div>
+  </section>
+
+  <!-- 5. IN-APP PURCHASES -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon icon-coral">🛒</div>
+      <h2>In-App Purchases</h2>
+    </div>
+    <p>
+      Maths Sparks: Little Learners offers optional one-time in-app purchases to unlock additional learning packs. Purchases are processed entirely by <strong>Google Play</strong> — we do not handle or store any payment card details.
+    </p>
+    <p>
+      Purchase history is managed by Google Play and can be restored at any time within the app. For full details, see <a href="https://play.google.com/about/play-terms/" target="_blank" rel="noopener">Google Play's Terms of Service</a>.
+    </p>
+    <div class="highlight-box blue">
+      We never see your payment details. All billing is handled securely by Google Play.
+    </div>
+  </section>
+
+  <!-- 6. CHILDREN'S PRIVACY -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon icon-green">👨‍👩‍👧</div>
+      <h2>Children's Privacy (COPPA)</h2>
+    </div>
+    <p>
+      This app is directed at children under 13 and is designed to comply with the <strong>Children's Online Privacy Protection Act (COPPA)</strong> and applicable data protection laws including <strong>UK GDPR</strong> and the <strong>Children's Code (Age Appropriate Design Code)</strong>.
+    </p>
+    <p>
+      We do not knowingly collect, use, or share personal information from children under 13. The app requires <strong>no account creation, no login, and no personal information</strong> to function.
+    </p>
+    <h3>Parental controls</h3>
+    <ul>
+      <li>All in-app purchases require Google Play authentication, which parents can control via Google Family Link or device parental controls</li>
+      <li>Ads can be permanently removed via a one-time purchase</li>
+      <li>All locally stored progress data can be cleared by uninstalling the app</li>
+    </ul>
+    <p>
+      If you are a parent or guardian and believe we have inadvertently collected personal information from your child, please contact us immediately at the address below and we will delete it promptly.
+    </p>
+  </section>
+
+  <!-- 7. DATA SECURITY -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon icon-purple">🔒</div>
+      <h2>Data Security &amp; Retention</h2>
+    </div>
+    <p>
+      Since we do not collect personal data, there is no personal data for us to secure, retain, or delete. The only data that exists is:
+    </p>
+    <ul>
+      <li><strong>Local progress data</strong> — stored on your device, under your control, deleted when you uninstall the app</li>
+      <li><strong>Aggregate ad/analytics data</strong> — handled by Google under their own privacy and security standards</li>
+    </ul>
+    <p>
+      We do not sell, rent, or share any user data with third parties beyond what is described in this policy.
+    </p>
+  </section>
+
+  <!-- 8. THIRD-PARTY SERVICES -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon icon-blue">🔗</div>
+      <h2>Third-Party Services</h2>
+    </div>
+    <p>The app integrates only the following third-party services:</p>
+    <ul>
+      <li><strong>Google Firebase / Firestore</strong> — content delivery (<a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase Privacy</a>)</li>
+      <li><strong>Google AdMob</strong> — child-directed, non-personalised ads (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>)</li>
+      <li><strong>Google Play Billing</strong> — secure in-app purchase processing</li>
+    </ul>
+    <p>
+      We do not use social media SDKs, analytics SDKs, crash reporting services, or any other third-party tracking libraries.
+    </p>
+  </section>
+
+  <!-- 9. CHANGES TO THIS POLICY -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon icon-gold">📋</div>
+      <h2>Changes to This Policy</h2>
+    </div>
+    <p>
+      We may update this privacy policy from time to time. When we do, the "Last updated" date at the top of this page will be revised. We encourage parents and guardians to review this policy periodically.
+    </p>
+    <p>
+      Continued use of the app after changes are posted constitutes acceptance of the revised policy. If we make material changes affecting how children's data is handled (if any), we will notify users via an in-app notice.
+    </p>
+  </section>
+
+  <!-- CONTACT -->
+  <div class="contact-section">
+    <div class="section-header" style="justify-content:center; margin-bottom:12px;">
+      <div class="section-icon icon-coral" style="background:rgba(255,255,255,0.2);">✉️</div>
+      <h2>Contact Us</h2>
+    </div>
+    <p>Questions, concerns, or requests regarding this privacy policy? We'd love to hear from you.</p>
+    <p style="margin-top:8px; opacity:0.9; font-size:14px;">Forge Academy · AQTECH</p>
+    <a href="mailto:aqeel.qureshius@gmail.com" class="contact-email">aqeel.qureshius@gmail.com</a>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <span class="diamond">◆</span>
+  &nbsp;
+  <strong>Forge Academy</strong> · Built by AQTECH
+  &nbsp;
+  <span class="diamond">◆</span>
+  <br /><br />
+  © 2026 AQTECH. All rights reserved.
+  <br />
+  Maths Sparks: Little Learners is part of the Forge Academy family of learning apps.
+</footer>
+
+</body>
+</html>
