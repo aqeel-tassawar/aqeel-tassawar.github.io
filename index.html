@@ -3,31 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AQTECH — Forge Studios &amp; Forge Labs</title>
-  <meta name="description" content="AQTECH: Mobile games by Forge Studios and smart utility apps by Forge Labs." />
-  <meta property="og:title" content="AQTECH — Forge Studios &amp; Forge Labs" />
-  <meta property="og:description" content="Independent mobile studio creating games and smart tools for Android." />
+  <title>AQTECH — Forge Studios, Forge Labs &amp; Forge Academy</title>
+  <meta name="description" content="AQTECH: Mobile games by Forge Studios, smart tools by Forge Labs, and educational apps by Forge Academy." />
+  <meta property="og:title" content="AQTECH — Forge Studios, Forge Labs &amp; Forge Academy" />
+  <meta property="og:description" content="Independent mobile studio creating premium games, utility tools, and learning apps." />
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:          #070710;
-      --bg-2:        #0d0d1f;
-      --surface:     rgba(255,255,255,0.04);
-      --border:      rgba(255,255,255,0.08);
-      --text:        #e4e4f0;
-      --muted:       #7878a0;
+      --bg:          #030308;
+      --bg-2:        #080816;
+      --surface:     rgba(255,255,255,0.03);
+      --surface-hover: rgba(255,255,255,0.06);
+      --border:      rgba(255,255,255,0.07);
+      --border-hover: rgba(255,255,255,0.15);
+      --text:        #f1f1f7;
+      --muted:       #8a8aab;
       --studios:     #FF6C2F;
       --studios-dim: rgba(255,108,47,0.12);
       --labs:        #00BFA5;
       --labs-dim:    rgba(0,191,165,0.12);
+      --academy:     #FF4E50;
+      --academy-dim: rgba(255,78,80,0.12);
       --brand:       #7C4DFF;
       --brand-dim:   rgba(124,77,255,0.15);
+      --font-outfit: 'Outfit', sans-serif;
     }
 
     html { scroll-behavior: smooth; }
@@ -41,11 +47,23 @@
     }
 
     /* ── Scrollbar ── */
-    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
 
-    /* ── Nav ── */
+    /* ── Animations Helper ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Navigation ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -53,31 +71,95 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 5vw;
-      height: 60px;
-      background: rgba(7,7,16,0.85);
-      backdrop-filter: blur(12px);
+      padding: 0 8vw;
+      height: 70px;
+      background: rgba(3,3,8,0.75);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
+      transition: background 0.3s, height 0.3s;
+    }
+    nav.scrolled {
+      height: 60px;
+      background: rgba(3,3,8,0.9);
+      border-bottom-color: rgba(255,255,255,0.12);
     }
     .nav-brand {
-      font-size: 18px;
+      font-family: var(--font-outfit);
+      font-size: 22px;
       font-weight: 900;
       letter-spacing: -0.5px;
-      background: linear-gradient(90deg, #a78bff, var(--brand));
+      background: linear-gradient(90deg, #b39ddb, var(--brand));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
-    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
     .nav-links a {
       color: var(--muted);
       text-decoration: none;
       font-size: 14px;
       font-weight: 500;
-      transition: color .2s;
+      transition: color .2s, text-shadow .2s;
     }
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text);
+      text-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+    
+    /* Hamburger Menu */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      z-index: 110;
+      background: transparent;
+      border: none;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .menu-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-toggle.open span:nth-child(2) { opacity: 0; }
+    .menu-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* Mobile Drawer */
+    .mobile-drawer {
+      position: fixed;
+      inset: 0;
+      background: rgba(3,3,8,0.98);
+      z-index: 99;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-drawer.open {
+      transform: translateX(0);
+    }
+    .mobile-drawer a {
+      font-family: var(--font-outfit);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .mobile-drawer a:hover {
+      color: var(--text);
+    }
 
     /* ── Hero ── */
     .hero {
@@ -87,41 +169,60 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 100px 24px 80px;
+      padding: 120px 24px 80px;
       position: relative;
       overflow: hidden;
+    }
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
     }
     .hero-glow {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 50% at 30% 40%, rgba(124,77,255,0.18) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 40% at 70% 60%, rgba(255,108,47,0.10) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 40% at 50% 90%, rgba(0,191,165,0.10) 0%, transparent 70%);
+        radial-gradient(ellipse 60% 50% at 30% 40%, rgba(124,77,255,0.15) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 70% 60%, rgba(255,108,47,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 50% 90%, rgba(0,191,165,0.08) 0%, transparent 70%);
       pointer-events: none;
+      z-index: 2;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 800px;
     }
     .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 16px;
+      padding: 6px 18px;
       border-radius: 50px;
       background: var(--brand-dim);
-      border: 1px solid rgba(124,77,255,0.3);
+      border: 1px solid rgba(124,77,255,0.25);
       font-size: 12px;
       font-weight: 600;
-      color: #a78bff;
-      letter-spacing: 0.5px;
+      color: #b59fff;
+      letter-spacing: 1px;
       text-transform: uppercase;
       margin-bottom: 28px;
+      box-shadow: 0 4px 20px rgba(124,77,255,0.15);
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
     }
     .hero h1 {
-      font-size: clamp(64px, 12vw, 120px);
+      font-family: var(--font-outfit);
+      font-size: clamp(64px, 12vw, 110px);
       font-weight: 900;
-      letter-spacing: -4px;
-      line-height: 1;
-      margin-bottom: 20px;
-      background: linear-gradient(135deg, #ffffff 0%, #a78bff 60%, var(--brand) 100%);
+      letter-spacing: -3px;
+      line-height: 0.95;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #ffffff 0%, #c4b5fd 50%, var(--brand) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -129,8 +230,8 @@
     .hero-sub {
       font-size: clamp(16px, 2.5vw, 20px);
       color: var(--muted);
-      max-width: 480px;
-      margin-bottom: 44px;
+      max-width: 580px;
+      margin: 0 auto 48px;
       font-weight: 400;
     }
     .brand-pills {
@@ -142,166 +243,230 @@
     .brand-pill {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 12px 24px;
+      gap: 12px;
+      padding: 14px 28px;
       border-radius: 50px;
       border: 1px solid;
       text-decoration: none;
       font-size: 15px;
       font-weight: 700;
-      transition: transform .2s, box-shadow .2s;
+      transition: transform .25s, box-shadow .25s, background .25s;
     }
-    .brand-pill:hover { transform: translateY(-2px); }
+    .brand-pill:hover {
+      transform: translateY(-3px);
+    }
     .brand-pill.studios {
-      background: rgba(255,108,47,0.1);
-      border-color: rgba(255,108,47,0.4);
+      background: rgba(255,108,47,0.06);
+      border-color: rgba(255,108,47,0.3);
       color: var(--studios);
-      box-shadow: 0 0 0 0 rgba(255,108,47,0.3);
     }
-    .brand-pill.studios:hover { box-shadow: 0 8px 32px rgba(255,108,47,0.2); }
+    .brand-pill.studios:hover {
+      background: rgba(255,108,47,0.12);
+      box-shadow: 0 10px 30px rgba(255,108,47,0.25);
+    }
     .brand-pill.labs {
-      background: rgba(0,191,165,0.1);
-      border-color: rgba(0,191,165,0.4);
+      background: rgba(0,191,165,0.06);
+      border-color: rgba(0,191,165,0.3);
       color: var(--labs);
     }
-    .brand-pill.labs:hover { box-shadow: 0 8px 32px rgba(0,191,165,0.2); }
-    .pill-icon { font-size: 18px; }
+    .brand-pill.labs:hover {
+      background: rgba(0,191,165,0.12);
+      box-shadow: 0 10px 30px rgba(0,191,165,0.25);
+    }
+    .brand-pill.academy {
+      background: rgba(255,78,80,0.06);
+      border-color: rgba(255,78,80,0.3);
+      color: var(--academy);
+    }
+    .brand-pill.academy:hover {
+      background: rgba(255,78,80,0.12);
+      box-shadow: 0 10px 30px rgba(255,78,80,0.25);
+    }
 
-    /* ── Scroll arrow ── */
     .scroll-hint {
       position: absolute;
-      bottom: 36px;
+      bottom: 30px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       color: var(--muted);
       font-size: 12px;
       font-weight: 500;
-      animation: bounce 2s ease-in-out infinite;
+      z-index: 3;
+      cursor: pointer;
+    }
+    .scroll-hint svg {
+      animation: bounce 2s infinite;
     }
     @keyframes bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50%       { transform: translateX(-50%) translateY(6px); }
+      0%, 100%, 20%, 50%, 80% { transform: translateY(0); }
+      40% { transform: translateY(-6px); }
+      60% { transform: translateY(-3px); }
     }
 
     /* ── Sections ── */
     section.brand-section {
-      padding: 100px 5vw;
-      max-width: 1100px;
+      padding: 120px 8vw;
+      max-width: 1280px;
       margin: 0 auto;
     }
     .section-tag {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 5px 14px;
+      padding: 6px 16px;
       border-radius: 50px;
       font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
-    .section-tag.studios { background: var(--studios-dim); color: var(--studios); }
-    .section-tag.labs    { background: var(--labs-dim);    color: var(--labs); }
+    .section-tag.studios { background: var(--studios-dim); color: var(--studios); border: 1px solid rgba(255,108,47,0.2); }
+    .section-tag.labs    { background: var(--labs-dim);    color: var(--labs); border: 1px solid rgba(0,191,165,0.2); }
+    .section-tag.academy { background: var(--academy-dim); color: var(--academy); border: 1px solid rgba(255,78,80,0.2); }
+    
     .section-title {
-      font-size: clamp(32px, 5vw, 48px);
+      font-family: var(--font-outfit);
+      font-size: clamp(36px, 5vw, 52px);
       font-weight: 900;
       letter-spacing: -1.5px;
       line-height: 1.1;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
     .section-sub {
-      font-size: 16px;
+      font-size: 17px;
       color: var(--muted);
-      margin-bottom: 56px;
+      margin-bottom: 60px;
+      max-width: 600px;
     }
 
-    /* ── Divider ── */
-    .section-divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-      margin: 0 auto;
-    }
-
-    /* ── Cards grid ── */
+    /* ── Cards Grid ── */
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px;
     }
 
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 24px;
       overflow: hidden;
-      transition: transform .25s, box-shadow .25s, border-color .25s;
+      transition: border-color .3s, box-shadow .3s, transform .1s;
       display: flex;
       flex-direction: column;
+      position: relative;
+      transform-style: preserve-3d;
+      will-change: transform;
     }
-    .card:hover { transform: translateY(-4px); }
-    .card.studios:hover { border-color: rgba(255,108,47,0.3); box-shadow: 0 20px 60px rgba(255,108,47,0.08); }
-    .card.labs:hover    { border-color: rgba(0,191,165,0.3);   box-shadow: 0 20px 60px rgba(0,191,165,0.08); }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle 200px at var(--mouse-x, 0) var(--mouse-y, 0), rgba(255, 255, 255, 0.05), transparent 80%);
+      pointer-events: none;
+      z-index: 3;
+    }
+    .card:hover {
+      border-color: var(--border-hover);
+    }
+    .card.studios:hover { box-shadow: 0 20px 50px rgba(255,108,47,0.06); }
+    .card.labs:hover    { box-shadow: 0 20px 50px rgba(0,191,165,0.06); }
+    .card.academy:hover { box-shadow: 0 20px 50px rgba(255,78,80,0.06); }
 
-    /* card art strip */
     .card-art {
-      height: 160px;
+      height: 180px;
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
     }
-    .card-art-icon {
-      font-size: 56px;
-      position: relative;
-      z-index: 1;
-      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));
-    }
     .card-art-bg {
       position: absolute;
       inset: 0;
-      opacity: 0.9;
+      opacity: 0.85;
+      transition: transform 0.5s;
+    }
+    .card:hover .card-art-bg {
+      transform: scale(1.05);
     }
 
     /* game-specific gradients */
-    .art-realms .card-art-bg  { background: linear-gradient(135deg, #1a0533 0%, #4a1060 40%, #8B2FC9 100%); }
-    .art-potion .card-art-bg  { background: linear-gradient(135deg, #0d2b1a 0%, #1a5c38 40%, #2ecc71 100%); }
-    .art-swarm  .card-art-bg  { background: linear-gradient(135deg, #1a0000 0%, #5c1a00 40%, #cc3700 100%); }
-    .art-slim   .card-art-bg  { background: linear-gradient(135deg, #002419 0%, #004D40 50%, #00695C 100%); }
+    .art-realms .card-art-bg  { background: linear-gradient(135deg, #110022 0%, #3a0a50 50%, #7c22b6 100%); }
+    .art-potion .card-art-bg  { background: linear-gradient(135deg, #051a0e 0%, #104024 50%, #27ae60 100%); }
+    .art-swarm  .card-art-bg  { background: linear-gradient(135deg, #120000 0%, #401000 50%, #b82e00 100%); }
+    .art-origami .card-art-bg { background: linear-gradient(135deg, #021a35 0%, #083c74 50%, #1e88e5 100%); }
+    .art-slim   .card-art-bg  { background: linear-gradient(135deg, #001a12 0%, #003a28 50%, #00795c 100%); }
+    .art-sparks .card-art-bg  { background: linear-gradient(135deg, #300c05 0%, #701e10 50%, #e65100 100%); }
 
-    /* sparkle overlay */
     .card-art::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 70% 30%, rgba(255,255,255,0.08) 0%, transparent 60%);
+      background: linear-gradient(to bottom, transparent 30%, rgba(3,3,8,0.4) 100%);
+      z-index: 1;
+    }
+
+    .card-art-img {
+      width: 90px;
+      height: 90px;
+      border-radius: 22px;
+      object-fit: cover;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+      transition: transform 0.3s;
+    }
+    .card:hover .card-art-img {
+      transform: scale(1.05) translateY(-3px);
+    }
+    
+    /* Fallback SVG Icon wrappers */
+    .card-art-icon-svg {
+      width: 90px;
+      height: 90px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+      transition: transform 0.3s;
+    }
+    .card:hover .card-art-icon-svg {
+      transform: scale(1.05) translateY(-3px);
     }
 
     .card-body {
-      padding: 20px 20px 24px;
+      padding: 24px;
       flex: 1;
       display: flex;
       flex-direction: column;
+      position: relative;
+      z-index: 4;
     }
     .card-platform {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .card-name {
-      font-size: 20px;
+      font-family: var(--font-outfit);
+      font-size: 22px;
       font-weight: 800;
       letter-spacing: -0.5px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       color: #fff;
     }
     .card-desc {
@@ -309,96 +474,265 @@
       color: var(--muted);
       line-height: 1.6;
       flex: 1;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
     .card-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 20px;
+      gap: 8px;
+      margin-bottom: 28px;
     }
     .tag {
-      padding: 3px 10px;
+      padding: 4px 12px;
       border-radius: 50px;
       font-size: 11px;
       font-weight: 600;
-      background: rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.04);
       color: var(--muted);
       border: 1px solid var(--border);
+    }
+    
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      margin-top: auto;
     }
     .card-cta {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 12px 20px;
-      border-radius: 12px;
+      padding: 14px 20px;
+      border-radius: 14px;
       text-decoration: none;
       font-size: 14px;
       font-weight: 700;
-      transition: opacity .2s, transform .15s;
-      margin-top: auto;
+      transition: opacity .2s, transform .15s, box-shadow .2s;
     }
     .card-cta:active { transform: scale(0.97); }
-    .card-cta:hover { opacity: 0.85; }
-    .card-cta.studios { background: var(--studios); color: #fff; }
-    .card-cta.labs    { background: var(--labs);    color: #000; }
+    .card-cta:hover { opacity: 0.95; }
+    .card-cta.studios { background: var(--studios); color: #fff; box-shadow: 0 4px 20px rgba(255,108,47,0.2); }
+    .card-cta.labs    { background: var(--labs);    color: #000; box-shadow: 0 4px 20px rgba(0,191,165,0.2); }
+    .card-cta.academy { background: var(--academy); color: #fff; box-shadow: 0 4px 20px rgba(255,78,80,0.2); }
 
-    /* App icon image in card art */
-    .card-art-img {
-      width: 88px;
-      height: 88px;
-      border-radius: 20px;
-      object-fit: cover;
-      position: relative;
-      z-index: 1;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.55);
+    .card-details-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .card-details-btn:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.25);
     }
 
-    /* play store svg icon */
-    .play-icon { width: 16px; height: 16px; flex-shrink: 0; }
+    .play-icon { width: 16px; height: 16px; flex-shrink: 0; fill: currentColor; }
 
-    /* ── Brand logomarks ── */
-    .brand-logomark { display: block; flex-shrink: 0; }
+    /* ── brand icon styles ── */
     .brand-logo-row {
       display: flex;
       align-items: center;
       gap: 16px;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
     .brand-logo-row .section-tag { margin-bottom: 0; }
 
-    /* ── Stats bar ── */
-    .stats-bar {
-      display: flex;
-      gap: 0;
+    /* ── Live Demo Potion sort Section ── */
+    .demo-section {
+      background: var(--bg-2);
       border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 120px 8vw;
+      position: relative;
     }
-    .stat {
-      flex: 1;
-      padding: 12px 16px;
-      text-align: center;
-      border-right: 1px solid var(--border);
+    .demo-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 60px;
+      align-items: center;
     }
-    .stat:last-child { border-right: none; }
-    .stat-val {
-      font-size: 15px;
-      font-weight: 700;
+    .demo-game-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      padding: 32px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .demo-header-row {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .demo-level-selector {
+      display: flex;
+      gap: 8px;
+    }
+    .demo-level-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .demo-level-btn.active {
+      background: var(--studios);
+      color: #fff;
+      border-color: var(--studios);
+      box-shadow: 0 0 15px rgba(255,108,47,0.3);
+    }
+    .demo-audio-toggle {
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      transition: background 0.2s, color 0.2s;
+    }
+    .demo-audio-toggle:hover {
+      background: rgba(255,255,255,0.08);
       color: var(--text);
     }
-    .stat-lbl {
-      font-size: 10px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    .game-board {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      align-items: flex-end;
+      min-height: 220px;
+      margin: 30px 0;
+      width: 100%;
+    }
+    .glass-tube {
+      width: 54px;
+      height: 170px;
+      border: 3px solid rgba(255,255,255,0.18);
+      border-radius: 0 0 27px 27px;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: flex-start;
+      overflow: hidden;
+      padding-bottom: 6px;
+      background: rgba(255,255,255,0.02);
+      box-shadow: inset 0 0 18px rgba(255,255,255,0.08);
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .glass-tube::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 15%;
+      width: 30%; height: 100%;
+      background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .glass-tube.selected {
+      transform: translateY(-16px);
+      border-color: var(--studios);
+      box-shadow: 0 10px 25px rgba(255,108,47,0.25), inset 0 0 12px rgba(255,108,47,0.15);
+    }
+    .glass-tube.completed {
+      border-color: #27ae60;
+      box-shadow: 0 0 20px rgba(39,174,96,0.3);
+    }
+    .liquid-block {
+      height: 36px;
+      margin: 0 3px 3px;
+      border-radius: 8px;
+      position: relative;
+      transition: transform 0.2s, height 0.2s;
+      z-index: 1;
+      opacity: 0.9;
+    }
+    .liquid-block:first-child {
+      border-radius: 8px 8px 22px 22px;
+    }
+    .liquid-block::after {
+      content: '';
+      position: absolute;
+      top: 10%; left: 10%; right: 10%; height: 30%;
+      background: rgba(255,255,255,0.2);
+      border-radius: 4px;
+      filter: blur(1px);
+    }
+    .liquid-red    { background: linear-gradient(to top, #c0392b, #e74c3c); }
+    .liquid-teal   { background: linear-gradient(to top, #008080, #00d2d2); }
+    .liquid-orange { background: linear-gradient(to top, #d35400, #ff8533); }
+    .liquid-purple { background: linear-gradient(to top, #6c2ba6, #9b59b6); }
+
+    .game-controls {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+      justify-content: center;
+    }
+    .game-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .game-btn:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.25);
+    }
+    .victory-banner {
+      color: #27ae60;
+      font-weight: 800;
+      font-size: 18px;
+      height: 28px;
+      margin-top: 12px;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .victory-banner.show {
+      opacity: 1;
+      transform: scale(1);
     }
 
-    /* ── About strip ── */
+
+
+    /* ── About Section ── */
     .about-strip {
       background: var(--bg-2);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      padding: 80px 5vw;
+      padding: 100px 8vw;
     }
     .about-inner {
       max-width: 1100px;
@@ -409,10 +743,12 @@
       align-items: center;
     }
     .about-text h2 {
-      font-size: 36px;
+      font-family: var(--font-outfit);
+      font-size: clamp(32px, 4vw, 44px);
       font-weight: 900;
-      letter-spacing: -1px;
-      margin-bottom: 16px;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 20px;
     }
     .about-text p {
       color: var(--muted);
@@ -425,55 +761,67 @@
       gap: 16px;
     }
     .brand-card {
-      padding: 20px 24px;
-      border-radius: 16px;
+      padding: 24px;
+      border-radius: 20px;
       border: 1px solid;
     }
-    .brand-card.studios { background: var(--studios-dim); border-color: rgba(255,108,47,0.2); }
-    .brand-card.labs    { background: var(--labs-dim);    border-color: rgba(0,191,165,0.2); }
+    .brand-card.studios { background: var(--studios-dim); border-color: rgba(255,108,47,0.15); }
+    .brand-card.labs    { background: var(--labs-dim);    border-color: rgba(0,191,165,0.15); }
+    .brand-card.academy { background: var(--academy-dim); border-color: rgba(255,78,80,0.15); }
+
     .brand-card-name {
+      font-family: var(--font-outfit);
       font-size: 18px;
       font-weight: 800;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
     .brand-card.studios .brand-card-name { color: var(--studios); }
     .brand-card.labs    .brand-card-name { color: var(--labs); }
-    .brand-card p { font-size: 13px; color: var(--muted); }
+    .brand-card.academy .brand-card-name { color: var(--academy); }
+    .brand-card p { font-size: 13.5px; color: var(--muted); }
+
+    /* ── Divider ── */
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
 
     /* ── Footer ── */
     footer {
-      padding: 60px 5vw 40px;
-      max-width: 1100px;
+      padding: 80px 8vw 40px;
+      max-width: 1280px;
       margin: 0 auto;
     }
     .footer-grid {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr;
-      gap: 48px;
-      padding-bottom: 40px;
+      gap: 60px;
+      padding-bottom: 50px;
       border-bottom: 1px solid var(--border);
       margin-bottom: 32px;
     }
     .footer-brand h3 {
-      font-size: 22px;
+      font-family: var(--font-outfit);
+      font-size: 24px;
       font-weight: 900;
       letter-spacing: -0.5px;
-      background: linear-gradient(90deg, #a78bff, var(--brand));
+      background: linear-gradient(90deg, #b39ddb, var(--brand));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 10px;
+      margin-bottom: 16px;
     }
-    .footer-brand p { font-size: 13px; color: var(--muted); max-width: 260px; }
+    .footer-brand p { font-size: 13.5px; color: var(--muted); max-width: 320px; }
     .footer-col h4 {
       font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       color: var(--muted);
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
     .footer-col a {
       color: var(--muted);
       text-decoration: none;
@@ -488,81 +836,354 @@
       font-size: 13px;
       color: var(--muted);
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 16px;
     }
     .footer-bottom a { color: var(--muted); text-decoration: none; }
     .footer-bottom a:hover { color: var(--text); }
 
-    /* ── Responsive ── */
-    @media (max-width: 768px) {
-      nav { padding: 0 20px; }
-      .nav-links { display: none; }
-      section.brand-section { padding: 70px 20px; }
-      .cards-grid { grid-template-columns: 1fr; }
+    /* ── Modal Overlay ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3,3,8,0.75);
+      backdrop-filter: blur(12px);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-box {
+      background: #0b0b18;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 28px;
+      width: 100%;
+      max-width: 760px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: scale(0.95) translateY(20px);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-overlay.open .modal-box {
+      transform: scale(1) translateY(0);
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .modal-close-btn:hover {
+      background: rgba(255,255,255,0.12);
+      transform: rotate(90deg);
+    }
+    .modal-body {
+      padding: 40px;
+    }
+    .modal-header-info {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    .modal-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+    .modal-title-wrap h3 {
+      font-family: var(--font-outfit);
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .modal-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Modal Carousel Gallery */
+    .modal-gallery {
+      position: relative;
+      width: 100%;
+      height: 240px;
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 32px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+    }
+    .gallery-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .gallery-slide {
+      min-width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .gallery-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .mock-screenshot {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      text-align: center;
+      color: #fff;
+    }
+    .mock-screenshot-title {
+      font-family: var(--font-outfit);
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    }
+    .mock-screenshot-desc {
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.85);
+      max-width: 380px;
+    }
+    
+    .gallery-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: background 0.2s;
+    }
+    .gallery-btn:hover { background: rgba(0,0,0,0.8); }
+    .gallery-btn.prev { left: 16px; }
+    .gallery-btn.next { right: 16px; }
+    .gallery-dots {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 2;
+    }
+    .gallery-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .gallery-dot.active {
+      background: #fff;
+      transform: scale(1.2);
+    }
+
+    .modal-section-title {
+      font-family: var(--font-outfit);
+      font-size: 16px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text);
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+    }
+    .modal-features-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+    .modal-features-list li {
+      font-size: 14px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .modal-features-list li::before {
+      content: "✦";
+      color: var(--brand);
+      font-weight: bold;
+    }
+    .modal-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      margin-top: 10px;
+    }
+    .modal-cta-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      transition: opacity 0.2s;
+    }
+    .modal-cta-btn:hover { opacity: 0.9; }
+
+    /* ── Responsive Styling ── */
+    @media (max-width: 992px) {
+      .demo-container { grid-template-columns: 1fr; gap: 40px; }
       .about-inner { grid-template-columns: 1fr; gap: 40px; }
-      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
-      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .menu-toggle { display: flex; }
+      section.brand-section { padding: 80px 24px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+      .modal-body { padding: 24px; }
+      .modal-features-list { grid-template-columns: 1fr; }
+      .modal-header-info { gap: 16px; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- ── Nav ── -->
-  <nav>
-    <a class="nav-brand" href="#">AQTECH</a>
+  <!-- ── Canvas particle background behind hero ── -->
+  <canvas id="hero-canvas"></canvas>
+
+  <!-- ── Navigation ── -->
+  <nav id="navbar">
+    <a class="nav-brand" href="#">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--brand);">
+        <polyline points="16 18 22 12 16 6"></polyline>
+        <polyline points="8 6 2 12 8 18"></polyline>
+      </svg>
+      AQTECH
+    </a>
     <ul class="nav-links">
       <li><a href="#studios">Forge Studios</a></li>
       <li><a href="#labs">Forge Labs</a></li>
+      <li><a href="#academy">Forge Academy</a></li>
+      <li><a href="#demo">Live Demo</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#privacy">Privacy</a></li>
     </ul>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </nav>
 
+  <!-- ── Mobile Drawer Overlay ── -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <a href="#studios">Forge Studios</a>
+    <a href="#labs">Forge Labs</a>
+    <a href="#academy">Forge Academy</a>
+    <a href="#demo">Live Demo</a>
+    <a href="#about">About</a>
+    <a href="#privacy">Privacy Policy</a>
+  </div>
+
   <!-- ── Hero ── -->
-  <header class="hero">
+  <header class="hero" id="home">
     <div class="hero-glow" aria-hidden="true"></div>
 
-    <div class="hero-badge">
-      <span>&#9670;</span> Independent Mobile Studio
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span>✦</span> Independent Mobile Studio
+      </div>
+
+      <h1>AQTECH</h1>
+
+      <p class="hero-sub" id="hero-subtitle">
+        Crafting beautiful mobile experiences — from fantasy merge games and tactical space shooters to private productivity tools.
+      </p>
+
+      <div class="brand-pills">
+        <a href="#studios" class="brand-pill studios">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 4px;">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M6 12h12M12 6v12"></path>
+          </svg>
+          Forge Studios
+        </a>
+        <a href="#labs" class="brand-pill labs">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 4px;">
+            <path d="M2 22l1-1h18l1 1"></path>
+            <path d="M12 2v14"></path>
+            <path d="M6 8h12"></path>
+          </svg>
+          Forge Labs
+        </a>
+        <a href="#academy" class="brand-pill academy">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 4px;">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+            <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+          </svg>
+          Forge Academy
+        </a>
+      </div>
     </div>
 
-    <h1>AQTECH</h1>
-
-    <p class="hero-sub">
-      Crafting mobile games and smart productivity tools —
-      built with passion, shipped to millions.
-    </p>
-
-    <div class="brand-pills">
-      <a href="#studios" class="brand-pill studios">
-        <svg class="pill-icon" width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-          <rect width="20" height="20" rx="5" fill="#FF6C2F" fill-opacity="0.18"/>
-          <rect x="0.5" y="0.5" width="19" height="19" rx="4.5" fill="none" stroke="#FF6C2F" stroke-width="1" stroke-opacity="0.5"/>
-          <text x="10" y="14" font-family="Inter,system-ui,sans-serif" font-weight="900" font-size="8" fill="#FF6C2F" text-anchor="middle" letter-spacing="-0.3">FS</text>
-        </svg>
-        Forge Studios &mdash; Games
-      </a>
-      <a href="#labs" class="brand-pill labs">
-        <svg class="pill-icon" width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-          <rect width="20" height="20" rx="5" fill="#00BFA5" fill-opacity="0.18"/>
-          <rect x="0.5" y="0.5" width="19" height="19" rx="4.5" fill="none" stroke="#00BFA5" stroke-width="1" stroke-opacity="0.5"/>
-          <text x="10" y="14" font-family="Inter,system-ui,sans-serif" font-weight="900" font-size="8" fill="#00BFA5" text-anchor="middle" letter-spacing="-0.3">FL</text>
-        </svg>
-        Forge Labs &mdash; Utilities
-      </a>
-    </div>
-
-    <div class="scroll-hint" aria-hidden="true">
-      <span>Scroll</span>
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path d="M8 3v10M4 9l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <div class="scroll-hint" id="scroll-hint" aria-hidden="true">
+      <span>Scroll Showcase</span>
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 3v10M4 9l4 4 4-4"/>
       </svg>
     </div>
   </header>
 
-  <!-- ── Forge Studios ── -->
-  <section class="brand-section" id="studios">
+  <!-- ── Forge Studios (Games) ── -->
+  <section class="brand-section reveal" id="studios">
     <div class="brand-logo-row">
       <svg class="brand-logomark" width="56" height="56" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -573,113 +1194,196 @@
         </defs>
         <rect width="56" height="56" rx="14" fill="url(#fg-s1)"/>
         <rect x="0.75" y="0.75" width="54.5" height="54.5" rx="13.5" fill="none" stroke="#FF6C2F" stroke-width="1.5" stroke-opacity="0.4"/>
-        <rect x="0.75" y="0.75" width="54.5" height="28" rx="13.5" fill="white" fill-opacity="0.04"/>
-        <text x="28" y="37" font-family="Inter,system-ui,-apple-system,sans-serif" font-weight="900" font-size="21" fill="#FF6C2F" text-anchor="middle" letter-spacing="-0.5">FS</text>
+        <text x="28" y="36" font-family="Outfit,sans-serif" font-weight="900" font-size="20" fill="#FF6C2F" text-anchor="middle" letter-spacing="-0.5">FS</text>
       </svg>
       <div class="section-tag studios">Forge Studios</div>
     </div>
     <h2 class="section-title">Mobile Games</h2>
-    <p class="section-sub">Strategy, fantasy and survival — available on Android</p>
+    <p class="section-sub">Immersive strategy, puzzle challenges, and action survivors for Android.</p>
 
     <div class="cards-grid">
-
       <!-- Forge of Realms -->
-      <article class="card studios art-realms">
+      <article class="card studios art-realms" data-app-id="realms">
         <div class="card-art">
           <div class="card-art-bg"></div>
-          <img class="card-art-img" src="/icons/forge-of-realms.png" alt="Forge of Realms icon"/>
+          <img class="card-art-img" src="/icons/forge-of-realms.png" alt="Forge of Realms icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="card-art-icon-svg" style="display:none;">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FF6C2F" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
         </div>
         <div class="card-body">
           <p class="card-platform">Android &bull; Merge Strategy</p>
           <h3 class="card-name">Forge of Realms</h3>
           <p class="card-desc">
-            Collect shards, iron, runes and legendary items on a 5×5 grid — merge them
-            to higher tiers and deploy your arsenal to defend your castle against
-            escalating waves of enemies and bosses.
+            Collect shards, runestones, and legendary gear on a 5×5 grid — merge components, level up structures, and defend your castle against dark hordes.
           </p>
           <div class="card-tags">
-            <span class="tag">Merge</span>
-            <span class="tag">Castle Defence</span>
-            <span class="tag">Fantasy</span>
+            <span class="tag">Merge Grid</span>
+            <span class="tag">Tower Defense</span>
+            <span class="tag">High Fantasy</span>
           </div>
-          <a class="card-cta studios"
-             href="https://play.google.com/store/apps/details?id=com.forgeofrealms"
-             target="_blank" rel="noopener">
-            <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M3.609 1.814L13.792 12 3.61 22.186a.75.75 0 01-1.11-.66V2.474a.75.75 0 011.11-.66zm10.89 8.893l2.84-2.84 3.28 1.9a1.5 1.5 0 010 2.586l-3.28 1.9-2.84-2.84L12.414 12l2.085-1.293z"/>
-            </svg>
-            Play on Google Play
-          </a>
+          <div class="card-actions">
+            <a class="card-cta studios" href="https://play.google.com/store/apps/details?id=com.forgeofrealms" target="_blank" rel="noopener">
+              <svg class="play-icon" viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.75.75 0 01-1.11-.66V2.474a.75.75 0 011.11-.66zm10.89 8.893l2.84-2.84 3.28 1.9a1.5 1.5 0 010 2.586l-3.28 1.9-2.84-2.84L12.414 12l2.085-1.293z"/></svg>
+              Get on Play Store
+            </a>
+            <button class="card-details-btn" aria-label="View details">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
         </div>
       </article>
 
       <!-- Potion Forge -->
-      <article class="card studios art-potion">
+      <article class="card studios art-potion" data-app-id="potion">
         <div class="card-art">
           <div class="card-art-bg"></div>
-          <img class="card-art-img" src="/icons/potion-forge.png" alt="Potion Forge icon"/>
+          <img class="card-art-img" src="/icons/potion-forge.png" alt="Potion Forge icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="card-art-icon-svg" style="display:none;">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
         </div>
         <div class="card-body">
-          <p class="card-platform">Android &bull; Puzzle</p>
+          <p class="card-platform">Android &bull; Logic Puzzle</p>
           <h3 class="card-name">Potion Forge</h3>
           <p class="card-desc">
-            A satisfying colour-sort puzzle — pour potions between flasks until
-            every tube holds a single colour. With 51+ levels, sealed flasks, move
-            budgets and escalating difficulty, it's a proper brain teaser.
+            A highly satisfying color-sorting logic game. Sort boiling magical liquids between glass test tubes with escalating limits, lock mechanisms, and custom levels.
           </p>
           <div class="card-tags">
-            <span class="tag">Puzzle</span>
-            <span class="tag">Colour Sort</span>
-            <span class="tag">Casual</span>
+            <span class="tag">Liquid Sorting</span>
+            <span class="tag">Brain Teaser</span>
+            <span class="tag">ASMR Sound</span>
           </div>
-          <a class="card-cta studios"
-             href="https://play.google.com/store/apps/details?id=com.forgestudios.potionforge"
-             target="_blank" rel="noopener">
-            <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M3.609 1.814L13.792 12 3.61 22.186a.75.75 0 01-1.11-.66V2.474a.75.75 0 011.11-.66zm10.89 8.893l2.84-2.84 3.28 1.9a1.5 1.5 0 010 2.586l-3.28 1.9-2.84-2.84L12.414 12l2.085-1.293z"/>
-            </svg>
-            Play on Google Play
-          </a>
+          <div class="card-actions">
+            <a class="card-cta studios" href="https://play.google.com/store/apps/details?id=com.forgestudios.potionforge" target="_blank" rel="noopener">
+              <svg class="play-icon" viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.75.75 0 01-1.11-.66V2.474a.75.75 0 011.11-.66zm10.89 8.893l2.84-2.84 3.28 1.9a1.5 1.5 0 010 2.586l-3.28 1.9-2.84-2.84L12.414 12l2.085-1.293z"/></svg>
+              Get on Play Store
+            </a>
+            <button class="card-details-btn" aria-label="View details">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
         </div>
       </article>
 
       <!-- Swarm Survivors -->
-      <article class="card studios art-swarm">
+      <article class="card studios art-swarm" data-app-id="swarm">
         <div class="card-art">
           <div class="card-art-bg"></div>
-          <img class="card-art-img" src="/icons/swarm-survivors.png" alt="Swarm Survivors icon"/>
+          <img class="card-art-img" src="/icons/swarm-survivors.png" alt="Swarm Survivors icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="card-art-icon-svg" style="display:none;">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16.2 7.8l-2 2M7.8 16.2l-2 2"/></svg>
+          </div>
         </div>
         <div class="card-body">
-          <p class="card-platform">Android &bull; Roguelike Shooter</p>
+          <p class="card-platform">Android &bull; Space Roguelike</p>
           <h3 class="card-name">Swarm Survivors</h3>
           <p class="card-desc">
-            Pick one of 5 ships, mow down alien hordes and level up mid-run with
-            14+ weapons and abilities — multishot, chain lightning, freeze, orbit
-            shields and more. Inspired by Vampire Survivors, built for mobile.
+            Vampire Survivors-inspired cosmic bullet hell. Command retro starfighters, unleash devastating elemental ship weapon synergies, and outlive the alien hive.
           </p>
           <div class="card-tags">
-            <span class="tag">Roguelike</span>
             <span class="tag">Bullet Hell</span>
-            <span class="tag">Space Shooter</span>
+            <span class="tag">Retro Space</span>
+            <span class="tag">Auto-Shooter</span>
           </div>
-          <a class="card-cta studios"
-             href="https://play.google.com/store/apps/details?id=com.forgestudios.swarmsurvivors"
-             target="_blank" rel="noopener">
-            <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M3.609 1.814L13.792 12 3.61 22.186a.75.75 0 01-1.11-.66V2.474a.75.75 0 011.11-.66zm10.89 8.893l2.84-2.84 3.28 1.9a1.5 1.5 0 010 2.586l-3.28 1.9-2.84-2.84L12.414 12l2.085-1.293z"/>
-            </svg>
-            Play on Google Play
-          </a>
+          <div class="card-actions">
+            <a class="card-cta studios" href="https://play.google.com/store/apps/details?id=com.forgestudios.swarmsurvivors" target="_blank" rel="noopener">
+              <svg class="play-icon" viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.75.75 0 01-1.11-.66V2.474a.75.75 0 011.11-.66zm10.89 8.893l2.84-2.84 3.28 1.9a1.5 1.5 0 010 2.586l-3.28 1.9-2.84-2.84L12.414 12l2.085-1.293z"/></svg>
+              Get on Play Store
+            </a>
+            <button class="card-details-btn" aria-label="View details">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
         </div>
       </article>
 
+      <!-- Origami Flight Lab -->
+      <article class="card studios art-origami" data-app-id="origami">
+        <div class="card-art">
+          <div class="card-art-bg"></div>
+          <div class="card-art-icon-svg">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#1e88e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="3 12 22 2 13 22 11 13 3 12"></polygon>
+            </svg>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-platform">Android &bull; Relaxation Simulator</p>
+          <h3 class="card-name">Origami Flight Lab</h3>
+          <p class="card-desc">
+            Pilot delicate hand-folded origami aircraft through cozy ambient low-poly rooms, botanical gardens, and canyon drafts. Unwind and master peaceful gliding.
+          </p>
+          <div class="card-tags">
+            <span class="tag">Zen Cozy</span>
+            <span class="tag">Flight Physics</span>
+            <span class="tag">Low-Poly Art</span>
+          </div>
+          <div class="card-actions">
+            <a class="card-cta studios" href="https://play.google.com/store/apps/details?id=com.forgestudios.origami_flight_lab" target="_blank" rel="noopener">
+              <svg class="play-icon" viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.75.75 0 01-1.11-.66V2.474a.75.75 0 011.11-.66zm10.89 8.893l2.84-2.84 3.28 1.9a1.5 1.5 0 010 2.586l-3.28 1.9-2.84-2.84L12.414 12l2.085-1.293z"/></svg>
+              Get on Play Store
+            </a>
+            <button class="card-details-btn" aria-label="View details">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
-  <div class="section-divider"></div>
+  <!-- ── Playable Potion sort Mini-Game Demo (Forge Studios showcase) ── -->
+  <section class="demo-section reveal" id="demo">
+    <div class="demo-container">
+      <div class="demo-info">
+        <div class="section-tag studios" style="background: rgba(255,108,47,0.1); border-color: rgba(255,108,47,0.25);">Try Game Demo</div>
+        <h2 class="section-title">Play Potion Sort</h2>
+        <p class="section-sub" style="margin-bottom: 24px;">
+          Experience our popular game <strong>Potion Forge</strong> right inside your web browser. Pour magical colored liquids between test tubes until every tube holds a single color.
+        </p>
+        <p class="section-sub" style="font-size: 15px; color: var(--muted);">
+          <strong>Rule:</strong> You can only pour a liquid color onto the same color, or into an empty tube. Tap a tube to select, then tap another to pour.
+        </p>
+      </div>
 
-  <!-- ── Forge Labs ── -->
-  <section class="brand-section" id="labs">
+      <div class="demo-game-card">
+        <div class="demo-header-row">
+          <div class="demo-level-selector">
+            <button class="demo-level-btn active" data-level="1">Lvl 1</button>
+            <button class="demo-level-btn" data-level="2">Lvl 2</button>
+            <button class="demo-level-btn" data-level="3">Lvl 3</button>
+          </div>
+          <button class="demo-audio-toggle" id="game-audio-toggle" title="Toggle audio feedback">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="game-board" id="game-board">
+          <!-- Glass tubes generated by JS -->
+        </div>
+
+        <div class="victory-banner" id="victory-banner">
+          ✨ Alchemy Solved! Fantastic Work! ✨
+        </div>
+
+        <div class="game-controls">
+          <button class="game-btn" id="game-restart-btn">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l.56-.56"></path>
+            </svg>
+            Restart Level
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Forge Labs (Utilities) ── -->
+  <section class="brand-section reveal" id="labs">
     <div class="brand-logo-row">
       <svg class="brand-logomark" width="56" height="56" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -690,101 +1394,151 @@
         </defs>
         <rect width="56" height="56" rx="14" fill="url(#fg-l1)"/>
         <rect x="0.75" y="0.75" width="54.5" height="54.5" rx="13.5" fill="none" stroke="#00BFA5" stroke-width="1.5" stroke-opacity="0.4"/>
-        <rect x="0.75" y="0.75" width="54.5" height="28" rx="13.5" fill="white" fill-opacity="0.04"/>
-        <text x="28" y="37" font-family="Inter,system-ui,-apple-system,sans-serif" font-weight="900" font-size="21" fill="#00BFA5" text-anchor="middle" letter-spacing="-0.5">FL</text>
+        <text x="28" y="36" font-family="Outfit,sans-serif" font-weight="900" font-size="20" fill="#00BFA5" text-anchor="middle" letter-spacing="-0.5">FL</text>
       </svg>
       <div class="section-tag labs">Forge Labs</div>
     </div>
     <h2 class="section-title">Utility Apps</h2>
-    <p class="section-sub">Smart tools that make your phone work better</p>
+    <p class="section-sub">Smart tools that prioritize private, offline, on-device operations.</p>
 
-    <div class="cards-grid" style="max-width:420px;">
-
+    <div class="cards-grid">
       <!-- SlimShot -->
-      <article class="card labs art-slim">
+      <article class="card labs art-slim" data-app-id="slimshot">
         <div class="card-art">
           <div class="card-art-bg"></div>
-          <img class="card-art-img" src="/icons/slimshot.png" alt="SlimShot icon"/>
+          <img class="card-art-img" src="/icons/slimshot.png" alt="SlimShot icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="card-art-icon-svg" style="display:none;">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00BFA5" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          </div>
         </div>
         <div class="card-body">
-          <p class="card-platform">Android &bull; Productivity</p>
+          <p class="card-platform">Android &bull; Storage Utility</p>
           <h3 class="card-name">SlimShot</h3>
           <p class="card-desc">
-            Smart local photo cleaner. Automatically finds blurry shots, duplicates,
-            dark photos, burst sequences and large videos — so you can reclaim storage
-            without the scroll-and-delete grind.
+            Smart on-device gallery cleaner. Automatically groups duplicate photos, burst shots, dark frames, and heavy video clips without cloud uploads.
           </p>
           <div class="card-tags">
-            <span class="tag">Free</span>
-            <span class="tag">No Cloud</span>
-            <span class="tag">On-Device</span>
-            <span class="tag">Ad-Free Pro</span>
+            <span class="tag">100% Private</span>
+            <span class="tag">No Cloud Sync</span>
+            <span class="tag">Local Cache</span>
           </div>
-          <a class="card-cta labs"
-             href="https://play.google.com/store/apps/details?id=com.forgelabs.slimshot"
-             target="_blank" rel="noopener">
-            <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M3.609 1.814L13.792 12 3.61 22.186a.75.75 0 01-1.11-.66V2.474a.75.75 0 011.11-.66zm10.89 8.893l2.84-2.84 3.28 1.9a1.5 1.5 0 010 2.586l-3.28 1.9-2.84-2.84L12.414 12l2.085-1.293z"/>
-            </svg>
-            Get on Google Play
-          </a>
+          <div class="card-actions">
+            <a class="card-cta labs" href="https://play.google.com/store/apps/details?id=com.forgelabs.slimshot" target="_blank" rel="noopener">
+              <svg class="play-icon" viewBox="0 0 24 24" style="fill:#000;"><path d="M3.609 1.814L13.792 12 3.61 22.186a.75.75 0 01-1.11-.66V2.474a.75.75 0 011.11-.66zm10.89 8.893l2.84-2.84 3.28 1.9a1.5 1.5 0 010 2.586l-3.28 1.9-2.84-2.84L12.414 12l2.085-1.293z"/></svg>
+              Get on Play Store
+            </a>
+            <button class="card-details-btn" aria-label="View details">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
         </div>
       </article>
-
     </div>
   </section>
 
   <div class="section-divider"></div>
 
-  <!-- ── About ── -->
+  <!-- ── Forge Academy (Education) ── -->
+  <section class="brand-section reveal" id="academy">
+    <div class="brand-logo-row">
+      <svg class="brand-logomark" width="56" height="56" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="fg-a1" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#4A0E10"/>
+            <stop offset="100%" stop-color="#8A1E20"/>
+          </linearGradient>
+        </defs>
+        <rect width="56" height="56" rx="14" fill="url(#fg-a1)"/>
+        <rect x="0.75" y="0.75" width="54.5" height="54.5" rx="13.5" fill="none" stroke="#FF4E50" stroke-width="1.5" stroke-opacity="0.4"/>
+        <text x="28" y="36" font-family="Outfit,sans-serif" font-weight="900" font-size="20" fill="#FF4E50" text-anchor="middle" letter-spacing="-0.5">FA</text>
+      </svg>
+      <div class="section-tag academy">Forge Academy</div>
+    </div>
+    <h2 class="section-title">Educational Learning</h2>
+    <p class="section-sub">Child-safe, engaging learning resources for early development.</p>
+
+    <div class="cards-grid">
+      <!-- Maths Sparks -->
+      <article class="card academy art-sparks" data-app-id="sparks">
+        <div class="card-art">
+          <div class="card-art-bg"></div>
+          <div class="card-art-icon-svg">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#FF4E50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 9h16M4 15h16M10 3v18M14 3v18"/>
+            </svg>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-platform">Android &bull; Kids Learning</p>
+          <h3 class="card-name">Maths Sparks: Little Learners</h3>
+          <p class="card-desc">
+            Early arithmetic built with play mechanics. Number tracing, sorting shapes, basic adding, and child-safe positive sensory chimes.
+          </p>
+          <div class="card-tags">
+            <span class="tag">Age 3-7</span>
+            <span class="tag">Trace &amp; Match</span>
+            <span class="tag">Ad-Free Learning</span>
+          </div>
+          <div class="card-actions">
+            <a class="card-cta academy" href="https://play.google.com/store/apps/details?id=com.forgeacademy.mathsparks" target="_blank" rel="noopener">
+              <svg class="play-icon" viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.75.75 0 01-1.11-.66V2.474a.75.75 0 011.11-.66zm10.89 8.893l2.84-2.84 3.28 1.9a1.5 1.5 0 010 2.586l-3.28 1.9-2.84-2.84L12.414 12l2.085-1.293z"/></svg>
+              Get on Play Store
+            </a>
+            <button class="card-details-btn" aria-label="View details">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+
+
+  <!-- ── About Section ── -->
   <div class="about-strip" id="about">
     <div class="about-inner">
       <div class="about-text">
-        <h2>Two brands.<br/>One vision.</h2>
+        <h2>Three brands.<br/>One unified vision.</h2>
         <p>
-          AQTECH is an independent mobile developer focused on quality over quantity.
-          Forge Studios creates games that are worth your time. Forge Labs ships utility apps
-          that respect your privacy — all processing happens on-device, nothing leaves your phone.
+          AQTECH is a multi-disciplinary independent mobile studio focused on premium visual experiences and user-first privacy principles.
+          Forge Studios builds deep strategy and puzzle challenges. Forge Labs develops offline tools where zero client data leaves the local processor. Forge Academy creates safe learning pathways for children.
         </p>
         <br/>
         <p style="color: var(--muted); font-size: 14px;">
-          Questions or feedback? Reach out via the Play Store listing for each app.
+          Support or inquiries? Drop us feedback directly through the respective Play Store app developer channel.
         </p>
       </div>
       <div class="about-brands">
         <div class="brand-card studios">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
             <svg width="40" height="40" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
-              <defs>
-                <linearGradient id="fg-s2" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stop-color="#3D1200"/>
-                  <stop offset="100%" stop-color="#7A2800"/>
-                </linearGradient>
-              </defs>
-              <rect width="56" height="56" rx="14" fill="url(#fg-s2)"/>
-              <rect x="0.75" y="0.75" width="54.5" height="54.5" rx="13.5" fill="none" stroke="#FF6C2F" stroke-width="1.5" stroke-opacity="0.4"/>
-              <text x="28" y="37" font-family="Inter,system-ui,sans-serif" font-weight="900" font-size="21" fill="#FF6C2F" text-anchor="middle" letter-spacing="-0.5">FS</text>
+              <rect width="56" height="56" rx="14" fill="#3D1200"/>
+              <text x="28" y="36" font-family="Outfit,sans-serif" font-weight="900" font-size="20" fill="#FF6C2F" text-anchor="middle" letter-spacing="-0.5">FS</text>
             </svg>
             <p class="brand-card-name">Forge Studios</p>
           </div>
-          <p>Mobile games — strategy, fantasy and action survival. Built for long-term engagement without dark patterns.</p>
+          <p>Strategy, RPG, action roguelike, and logic puzzle games crafted for long-term depth and zero pay-to-win tricks.</p>
         </div>
         <div class="brand-card labs">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
             <svg width="40" height="40" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
-              <defs>
-                <linearGradient id="fg-l2" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stop-color="#002419"/>
-                  <stop offset="100%" stop-color="#004838"/>
-                </linearGradient>
-              </defs>
-              <rect width="56" height="56" rx="14" fill="url(#fg-l2)"/>
-              <rect x="0.75" y="0.75" width="54.5" height="54.5" rx="13.5" fill="none" stroke="#00BFA5" stroke-width="1.5" stroke-opacity="0.4"/>
-              <text x="28" y="37" font-family="Inter,system-ui,sans-serif" font-weight="900" font-size="21" fill="#00BFA5" text-anchor="middle" letter-spacing="-0.5">FL</text>
+              <rect width="56" height="56" rx="14" fill="#002419"/>
+              <text x="28" y="36" font-family="Outfit,sans-serif" font-weight="900" font-size="20" fill="#00BFA5" text-anchor="middle" letter-spacing="-0.5">FL</text>
             </svg>
             <p class="brand-card-name">Forge Labs</p>
           </div>
-          <p>Productivity and utility apps — private by design, built to solve real phone problems without subscriptions.</p>
+          <p>Productivity and system utility applications. Built without accounts or network connectivity to guarantee 100% security.</p>
+        </div>
+        <div class="brand-card academy">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+            <svg width="40" height="40" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+              <rect width="56" height="56" rx="14" fill="#4A0E10"/>
+              <text x="28" y="36" font-family="Outfit,sans-serif" font-weight="900" font-size="20" fill="#FF4E50" text-anchor="middle" letter-spacing="-0.5">FA</text>
+            </svg>
+            <p class="brand-card-name">Forge Academy</p>
+          </div>
+          <p>Educational interactive apps built in strict alignment with early childhood learning guidelines and COPPA requirements.</p>
         </div>
       </div>
     </div>
@@ -795,29 +1549,710 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <h3>AQTECH</h3>
-        <p>Independent mobile development studio. Games by Forge Studios. Utilities by Forge Labs.</p>
+        <p>Premium mobile applications. Games by Forge Studios, privacy tools by Forge Labs, and early learning by Forge Academy.</p>
       </div>
       <div class="footer-col">
-        <h4>Games</h4>
+        <h4>Our Products</h4>
         <ul>
           <li><a href="https://play.google.com/store/apps/details?id=com.forgeofrealms" target="_blank" rel="noopener">Forge of Realms</a></li>
           <li><a href="https://play.google.com/store/apps/details?id=com.forgestudios.potionforge" target="_blank" rel="noopener">Potion Forge</a></li>
           <li><a href="https://play.google.com/store/apps/details?id=com.forgestudios.swarmsurvivors" target="_blank" rel="noopener">Swarm Survivors</a></li>
+          <li><a href="https://play.google.com/store/apps/details?id=com.forgestudios.origami_flight_lab" target="_blank" rel="noopener">Origami Flight Lab</a></li>
+          <li><a href="https://play.google.com/store/apps/details?id=com.forgelabs.slimshot" target="_blank" rel="noopener">SlimShot</a></li>
+          <li><a href="https://play.google.com/store/apps/details?id=com.forgeacademy.mathsparks" target="_blank" rel="noopener">Maths Sparks</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Privacy Policies</h4>
         <ul>
-          <li><a href="/slimshot-privacy.html">SlimShot</a></li>
-          <!-- Add more privacy policy links here as needed -->
+          <li><a href="/slimshot-privacy.html">SlimShot Privacy</a></li>
+          <li><a href="/origami-flight-lab-privacy.html">Origami Flight Lab Privacy</a></li>
+          <li><a href="/mathsparks-privacy.html">Maths Sparks Privacy</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; 2025 AQTECH. All rights reserved.</span>
-      <span>Forge Studios &bull; Forge Labs</span>
+      <span>&copy; 2026 AQTECH. All rights reserved.</span>
+      <span>Forge Studios &bull; Forge Labs &bull; Forge Academy</span>
     </div>
   </footer>
 
+  <!-- ── Modal Container ── -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-box">
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close details dialog">&times;</button>
+      <div class="modal-body" id="modal-body-content">
+        <!-- Content injected dynamically by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Custom JS Logic ── -->
+  <script>
+    /* App database for details modals */
+    const appDatabase = {
+      realms: {
+        title: "Forge of Realms",
+        subtitle: "Android • Merge strategy Defense",
+        logoSvg: '<svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#FF6C2F" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
+        colorClass: "studios",
+        playLink: "https://play.google.com/store/apps/details?id=com.forgeofrealms",
+        slides: [
+          { title: "Defend Your Core", desc: "Build defensive layouts and merge resources on a grid to unlock top-tier protection." },
+          { title: "Legendary Bosses", desc: "Test your strategy against 15+ special bosses with special attack styles." },
+          { title: "Runes and Upgrades", desc: "Unlock cards and permanent passives to empower towers across campaign runs." }
+        ],
+        features: [
+          "Cozy merge puzzles meeting tactical defense",
+          "Dozens of upgrades and legendary runs",
+          "Completely free campaign runs",
+          "Balanced play - absolutely no paywalls"
+        ]
+      },
+      potion: {
+        title: "Potion Forge",
+        subtitle: "Android • Liquid sort puzzle",
+        logoSvg: '<svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+        colorClass: "studios",
+        playLink: "https://play.google.com/store/apps/details?id=com.forgestudios.potionforge",
+        slides: [
+          { title: "Boiling Flask Sorting", desc: "Carefully plan pours to isolate single colors within laboratory tubes." },
+          { title: "Over 100 Lab Trials", desc: "Start simple and unlock stages featuring limited capacity and color blockades." },
+          { title: "Pure Sensory ASMR", desc: "Enjoy satisfying liquid gurgles, bubblers, and chemical reactions." }
+        ],
+        features: [
+          "Relaxing sorting rules without harsh timers",
+          "Sleek clean animations and sounds",
+          "Over 100 bespoke puzzles",
+          "Full support for offline playback"
+        ]
+      },
+      swarm: {
+        title: "Swarm Survivors",
+        subtitle: "Android • Space bullet hell",
+        logoSvg: '<svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16.2 7.8l-2 2M7.8 16.2l-2 2"/></svg>',
+        colorClass: "studios",
+        playLink: "https://play.google.com/store/apps/details?id=com.forgestudios.swarmsurvivors",
+        slides: [
+          { title: "Annihilate Hives", desc: "Dodge millions of projectiles and vaporize alien swarms." },
+          { title: "Mid-Run Evolution", desc: "Level up your guns, missiles, elemental orbits, and shields in real time." },
+          { title: "Custom Starships", desc: "Unlock 5 unique hulls, each with special starting armaments." }
+        ],
+        features: [
+          "One-finger responsive joystick tracking",
+          "Dozens of weapon combinations",
+          "Fast, highly engaging 10-minute cycles",
+          "High frame-rate optimized engine"
+        ]
+      },
+      origami: {
+        title: "Origami Flight Lab",
+        subtitle: "Android • Relaxation Glider",
+        logoSvg: '<svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#1e88e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 12 22 2 13 22 11 13 3 12"></polygon></svg>',
+        colorClass: "studios",
+        playLink: "https://play.google.com/store/apps/details?id=com.forgestudios.origami_flight_lab",
+        slides: [
+          { title: "Cozy Gliding Physics", desc: "Control momentum and utilize gentle updrafts to cruise across spaces." },
+          { title: "Beautiful Landscapes", desc: "Glide through low-poly botanical gardens, paper hills, and cozy libraries." },
+          { title: "Scenic Origami Collection", desc: "Unlock unique paper models ranging from classic darts to origami cranes." }
+        ],
+        features: [
+          "Relaxing zen flight dynamics",
+          "Cozy ambient acoustic soundtracks",
+          "No stress, no scores, just flying",
+          "Beautiful custom color palettes"
+        ]
+      },
+      slimshot: {
+        title: "SlimShot",
+        subtitle: "Android • Storage Organizer",
+        logoSvg: '<svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#00BFA5" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>',
+        colorClass: "labs",
+        playLink: "https://play.google.com/store/apps/details?id=com.forgelabs.slimshot",
+        slides: [
+          { title: "Group Duplicates Offline", desc: "Instantly detect visually identical images and duplicate folders." },
+          { title: "Filter Out Blurry Shots", desc: "Clean up burst sequences and accidental dark pocket triggers automatically." },
+          { title: "Check Free Storage", desc: "Local storage statistics to quickly check free slots." }
+        ],
+        features: [
+          "100% on-device local photo analysis",
+          "No internet authorization required",
+          "Extremely rapid scanning",
+          "Visual comparison sliders"
+        ]
+      },
+      sparks: {
+        title: "Maths Sparks: Little Learners",
+        subtitle: "Android • Educational",
+        logoSvg: '<svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#FF4E50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h16M4 15h16M10 3v18M14 3v18"/></svg>',
+        colorClass: "academy",
+        playLink: "https://play.google.com/store/apps/details?id=com.forgeacademy.mathsparks",
+        slides: [
+          { title: "Trace and Count", desc: "Vibrant visual tracing maps teaching spelling, lines, and numerals." },
+          { title: "Match Puzzles", desc: "Fun shape and color associations that stimulate motor coordination." },
+          { title: "Safe Digital Sandbox", desc: "Zero tracking, child-friendly flow, and positive sounds." }
+        ],
+        features: [
+          "Interactive arithmetic counting modules",
+          "Child-safe interface, ad-free option",
+          "Friendly guidance and sound cues",
+          "Developed with nursery education experts"
+        ]
+      }
+    };
+
+    /* Carousel State */
+    let currentSlideIndex = 0;
+
+    /* ── Intersection Observer for Scroll Reveals ── */
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    /* ── Navbar scroll effect ── */
+    const navbar = document.getElementById('navbar');
+    const navLinks = document.querySelectorAll('.nav-links a, .mobile-drawer a');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+      
+      // Update active nav links
+      let currentSectionId = '';
+      const sections = document.querySelectorAll('section, header');
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 120;
+        if (window.scrollY >= sectionTop) {
+          currentSectionId = section.getAttribute('id');
+        }
+      });
+      
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentSectionId}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    /* ── Mobile Hamburger Menu ── */
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('open');
+      mobileDrawer.classList.toggle('open');
+      document.body.style.overflow = mobileDrawer.classList.contains('open') ? 'hidden' : '';
+    });
+
+    mobileDrawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle.classList.remove('open');
+        mobileDrawer.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    /* ── Canvas Particles in Hero ── */
+    const canvas = document.getElementById('hero-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let mouse = { x: null, y: null, radius: 120 };
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    window.addEventListener('mousemove', (e) => {
+      if (window.scrollY < window.innerHeight) {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+      } else {
+        mouse.x = null;
+        mouse.y = null;
+      }
+    });
+
+    window.addEventListener('mouseleave', () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 0.4 - 0.2;
+        this.speedY = Math.random() * -0.5 - 0.1;
+        this.opacity = Math.random() * 0.5 + 0.1;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        
+        if (this.y < -10 || this.x < -10 || this.x > canvas.width + 10) {
+          this.reset();
+          this.y = canvas.height + 5;
+        }
+
+        // Mouse avoidance
+        if (mouse.x !== null && mouse.y !== null) {
+          let dx = this.x - mouse.x;
+          let dy = this.y - mouse.y;
+          let distance = Math.hypot(dx, dy);
+          if (distance < mouse.radius) {
+            let force = (mouse.radius - distance) / mouse.radius;
+            let angle = Math.atan2(dy, dx);
+            this.x += Math.cos(angle) * force * 2;
+            this.y += Math.sin(angle) * force * 2;
+          }
+        }
+      }
+      draw() {
+        ctx.fillStyle = `rgba(124, 77, 255, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      const particleCount = Math.min(Math.floor(window.innerWidth / 15), 100);
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+    }
+    initParticles();
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+      }
+      
+      // Connect close particles
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i; j < particles.length; j++) {
+          let dx = particles[i].x - particles[j].x;
+          let dy = particles[i].y - particles[j].y;
+          let distance = Math.hypot(dx, dy);
+          if (distance < 75) {
+            let op = (75 - distance) / 75 * 0.12;
+            ctx.strokeStyle = `rgba(124, 77, 255, ${op})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    /* ── 3D Tilt & Mouse Glow Spot Effect on Cards ── */
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+        
+        // 3D Tilt calculation
+        const cardWidth = rect.width;
+        const cardHeight = rect.height;
+        const centerX = cardWidth / 2;
+        const centerY = cardHeight / 2;
+        const rotateX = -((y - centerY) / centerY) * 5; // max 5deg
+        const rotateY = ((x - centerX) / centerX) * 5;
+        
+        card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+
+    /* ── Details Modals Logic ── */
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const modalBodyContent = document.getElementById('modal-body-content');
+    
+    document.querySelectorAll('.card-details-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const cardElement = btn.closest('.card');
+        const appId = cardElement.getAttribute('data-app-id');
+        openModal(appId);
+      });
+    });
+
+    modalCloseBtn.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+
+    function openModal(appId) {
+      const data = appDatabase[appId];
+      if (!data) return;
+
+      currentSlideIndex = 0;
+      
+      // Build features markup
+      let featuresHtml = '';
+      data.features.forEach(f => {
+        featuresHtml += `<li>${f}</li>`;
+      });
+
+      // Build slides markup
+      let slidesHtml = '';
+      let dotsHtml = '';
+      data.slides.forEach((slide, idx) => {
+        slidesHtml += `
+          <div class="gallery-slide">
+            <div class="mock-screenshot" style="background: linear-gradient(135deg, #090916 0%, #15152a 100%)">
+              <div style="font-size:36px;margin-bottom:12px;">📊</div>
+              <h4 class="mock-screenshot-title">${slide.title}</h4>
+              <p class="mock-screenshot-desc">${slide.desc}</p>
+            </div>
+          </div>
+        `;
+        dotsHtml += `<span class="gallery-dot ${idx === 0 ? 'active' : ''}" onclick="setGallerySlide(${idx})"></span>`;
+      });
+
+      const markup = `
+        <div class="modal-header-info">
+          <div class="modal-icon-container">
+            ${data.logoSvg}
+          </div>
+          <div class="modal-title-wrap">
+            <div class="modal-subtitle">${data.subtitle}</div>
+            <h3>${data.title}</h3>
+          </div>
+        </div>
+
+        <div class="modal-gallery">
+          <div class="gallery-track" id="gallery-track">
+            ${slidesHtml}
+          </div>
+          <button class="gallery-btn prev" onclick="shiftGallerySlide(-1)">&#10094;</button>
+          <button class="gallery-btn next" onclick="shiftGallerySlide(1)">&#10095;</button>
+          <div class="gallery-dots">
+            ${dotsHtml}
+          </div>
+        </div>
+
+        <div class="modal-section-title">Key Features</div>
+        <ul class="modal-features-list">
+          ${featuresHtml}
+        </ul>
+
+        <div class="modal-footer">
+          <span style="color:var(--muted); font-size: 13px;">Available on Android Mobile</span>
+          <a class="modal-cta-btn ${data.colorClass}" href="${data.playLink}" target="_blank" rel="noopener">
+            Play on Google Play
+          </a>
+        </div>
+      `;
+
+      modalBodyContent.innerHTML = markup;
+      modalOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    window.shiftGallerySlide = function(direction) {
+      const track = document.getElementById('gallery-track');
+      const slides = document.querySelectorAll('.gallery-slide');
+      if (!track || slides.length === 0) return;
+      
+      currentSlideIndex = (currentSlideIndex + direction + slides.length) % slides.length;
+      track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+      updateGalleryDots();
+    };
+
+    window.setGallerySlide = function(slideIndex) {
+      const track = document.getElementById('gallery-track');
+      if (!track) return;
+      
+      currentSlideIndex = slideIndex;
+      track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+      updateGalleryDots();
+    };
+
+    function updateGalleryDots() {
+      const dots = document.querySelectorAll('.gallery-dot');
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentSlideIndex);
+      });
+    }
+
+
+    /* ── Playable Potion Sort game logic ── */
+    let audioCtx = null;
+    let audioEnabled = false;
+
+    // Web Audio Synthesized Sounds
+    function playBubbleSound() {
+      if (!audioEnabled || !audioCtx) return;
+      
+      // Bubble blip
+      let osc = audioCtx.createOscillator();
+      let gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.12);
+      
+      gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
+      
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.13);
+    }
+
+    function playVictoryChime() {
+      if (!audioEnabled || !audioCtx) return;
+      
+      // Happy chime arpeggio
+      const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.50]; // C Major
+      notes.forEach((freq, i) => {
+        setTimeout(() => {
+          let osc = audioCtx.createOscillator();
+          let gain = audioCtx.createGain();
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+          
+          gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+          
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.45);
+        }, i * 65);
+      });
+    }
+
+    document.getElementById('game-audio-toggle').addEventListener('click', () => {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      audioEnabled = !audioEnabled;
+      const toggle = document.getElementById('game-audio-toggle');
+      if (audioEnabled) {
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        toggle.style.color = 'var(--studios)';
+        toggle.style.borderColor = 'var(--studios)';
+        playBubbleSound();
+      } else {
+        toggle.style.color = '';
+        toggle.style.borderColor = '';
+      }
+    });
+
+    // Game variables
+    let gameLevels = {
+      1: {
+        tubes: [
+          ['red', 'teal', 'red', 'teal'],
+          ['teal', 'red', 'teal', 'red'],
+          []
+        ],
+        tubeSize: 4
+      },
+      2: {
+        tubes: [
+          ['red', 'teal', 'orange', 'red'],
+          ['orange', 'red', 'teal', 'orange'],
+          ['teal', 'orange', 'red', 'teal'],
+          [],
+          []
+        ],
+        tubeSize: 4
+      },
+      3: {
+        tubes: [
+          ['red', 'teal', 'orange', 'purple'],
+          ['purple', 'red', 'teal', 'orange'],
+          ['orange', 'purple', 'red', 'teal'],
+          ['teal', 'orange', 'purple', 'red'],
+          [],
+          []
+        ],
+        tubeSize: 4
+      }
+    };
+
+    let activeLevel = 1;
+    let tubeStates = [];
+    let selectedTubeIdx = null;
+    let gameActive = true;
+
+    function initGame(level) {
+      activeLevel = level;
+      // Deep clone initial state
+      tubeStates = JSON.parse(JSON.stringify(gameLevels[level].tubes));
+      selectedTubeIdx = null;
+      gameActive = true;
+      document.getElementById('victory-banner').classList.remove('show');
+      renderGameBoard();
+    }
+
+    function renderGameBoard() {
+      const board = document.getElementById('game-board');
+      board.innerHTML = '';
+      
+      tubeStates.forEach((contents, idx) => {
+        const tube = document.createElement('div');
+        tube.className = 'glass-tube';
+        if (selectedTubeIdx === idx) tube.classList.add('selected');
+        
+        // Check if tube is completed (all items match, and is full, OR is completely empty)
+        const isComplete = contents.length === 4 && contents.every(c => c === contents[0]);
+        if (isComplete) tube.classList.add('completed');
+
+        contents.forEach(color => {
+          const liquid = document.createElement('div');
+          liquid.className = `liquid-block liquid-${color}`;
+          tube.appendChild(liquid);
+        });
+
+        tube.addEventListener('click', () => handleTubeClick(idx));
+        board.appendChild(tube);
+      });
+    }
+
+    function handleTubeClick(idx) {
+      if (!gameActive) return;
+      
+      if (!audioCtx && audioEnabled) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+
+      if (selectedTubeIdx === null) {
+        // Select tube if not empty
+        if (tubeStates[idx].length > 0) {
+          selectedTubeIdx = idx;
+          playBubbleSound();
+        }
+      } else {
+        // Try pouring from selected to target
+        if (selectedTubeIdx === idx) {
+          // Deselect
+          selectedTubeIdx = null;
+          playBubbleSound();
+        } else {
+          // Attempt pour
+          if (canPour(selectedTubeIdx, idx)) {
+            pourLiquid(selectedTubeIdx, idx);
+            selectedTubeIdx = null;
+            playBubbleSound();
+            checkVictory();
+          } else {
+            // Cannot pour, change selection to this tube instead if not empty
+            if (tubeStates[idx].length > 0) {
+              selectedTubeIdx = idx;
+              playBubbleSound();
+            }
+          }
+        }
+      }
+      renderGameBoard();
+    }
+
+    function canPour(srcIdx, destIdx) {
+      const src = tubeStates[srcIdx];
+      const dest = tubeStates[destIdx];
+      const max = 4;
+      
+      if (src.length === 0) return false;
+      if (dest.length >= max) return false;
+      
+      const topColor = src[src.length - 1];
+      
+      // Can pour into empty
+      if (dest.length === 0) return true;
+      
+      // Can pour onto same color
+      return dest[dest.length - 1] === topColor;
+    }
+
+    function pourLiquid(srcIdx, destIdx) {
+      const src = tubeStates[srcIdx];
+      const dest = tubeStates[destIdx];
+      const topColor = src[src.length - 1];
+      
+      // Pour matching blocks contiguous block
+      while (src.length > 0 && src[src.length - 1] === topColor && dest.length < 4) {
+        dest.push(src.pop());
+      }
+    }
+
+    function checkVictory() {
+      let won = true;
+      tubeStates.forEach(contents => {
+        if (contents.length > 0) {
+          const allSame = contents.every(c => c === contents[0]);
+          if (!allSame || contents.length !== 4) {
+            won = false;
+          }
+        }
+      });
+      
+      if (won) {
+        gameActive = false;
+        document.getElementById('victory-banner').classList.add('show');
+        playVictoryChime();
+      }
+    }
+
+    // Set level select buttons
+    document.querySelectorAll('.demo-level-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.demo-level-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        initGame(parseInt(btn.getAttribute('data-level')));
+      });
+    });
+
+    document.getElementById('game-restart-btn').addEventListener('click', () => {
+      initGame(activeLevel);
+    });
+
+    // Start level 1 automatically
+    initGame(1);
+  </script>
 </body>
 </html>

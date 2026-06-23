@@ -3,259 +3,476 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privacy Policy – SlimShot</title>
+  <title>Privacy Policy — SlimShot</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@600;800;900&display=swap" rel="stylesheet" />
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --bg:          #030308;
+      --bg-2:        #080816;
+      --surface:     rgba(255,255,255,0.03);
+      --surface-hover: rgba(255,255,255,0.06);
+      --border:      rgba(255,255,255,0.07);
+      --text:        #f1f1f7;
+      --muted:       #8a8aab;
+      --accent:      #00BFA5;
+      --accent-dim:  rgba(0,191,165,0.12);
+      --font-outfit: 'Outfit', sans-serif;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: #ffffff;
-      color: #212121;
-      font-size: 16px;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       line-height: 1.7;
+      overflow-x: hidden;
     }
 
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8vw;
+      height: 70px;
+      background: rgba(3,3,8,0.75);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-back {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-back:hover {
+      color: var(--text);
+    }
+    .nav-brand {
+      font-family: var(--font-outfit);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* ── Header ── */
     header {
-      background: #004D40;
-      color: #ffffff;
-      padding: 36px 24px 28px;
-      text-align: center;
-    }
-
-    header h1 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    header p {
-      margin-top: 6px;
-      font-size: 0.9rem;
-      opacity: 0.85;
-    }
-
-    main {
-      max-width: 760px;
+      padding: 140px 8vw 60px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 32px 20px 64px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .header-glow {
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 300px;
+      background: radial-gradient(ellipse at center, rgba(0,191,165,0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .app-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 50px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(0,191,165,0.25);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-family: var(--font-outfit);
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .header-meta {
+      font-size: 14px;
+      color: var(--muted);
     }
 
-    .intro {
-      background: #E0F2F1;
-      border-left: 4px solid #004D40;
-      border-radius: 4px;
-      padding: 16px 20px;
-      margin-bottom: 36px;
-      font-size: 0.95rem;
-      color: #004D40;
+    /* ── Main Container ── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 8vw 100px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* Sticky Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 110px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sidebar h3 {
+      font-family: var(--font-outfit);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .sidebar-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 6px 0;
+      border-left: 2px solid transparent;
+      padding-left: 14px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .sidebar-link:hover, .sidebar-link.active {
+      color: var(--text);
+      border-left-color: var(--accent);
+    }
+
+    /* Content Area */
+    .content {
+      max-width: 760px;
+    }
+    .intro-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      font-size: 16px;
+      color: #e2e2e9;
+      margin-bottom: 48px;
+      position: relative;
+    }
+    .intro-card::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0; width: 4px;
+      background: var(--accent);
+      border-radius: 4px 0 0 4px;
     }
 
     section {
-      margin-bottom: 36px;
+      margin-bottom: 56px;
+      scroll-margin-top: 110px;
     }
-
-    h2 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #004D40;
-      margin-bottom: 10px;
-      padding-bottom: 6px;
-      border-bottom: 2px solid #E0F2F1;
+    section h2 {
+      font-family: var(--font-outfit);
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
-
-    p {
-      margin-bottom: 10px;
-      color: #333333;
+    section h2::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
     }
-
-    ul {
-      margin: 8px 0 10px 20px;
-      color: #333333;
+    section p {
+      color: var(--muted);
+      margin-bottom: 18px;
+      font-size: 15px;
     }
-
-    ul li {
-      margin-bottom: 6px;
+    section ul {
+      margin-left: 20px;
+      margin-bottom: 20px;
+      color: var(--muted);
     }
-
+    section li {
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+    strong {
+      color: #fff;
+      font-weight: 600;
+    }
+    
     .badge {
       display: inline-block;
-      background: #004D40;
-      color: #ffffff;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 2px 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
       border-radius: 12px;
-      vertical-align: middle;
-      margin-left: 8px;
-      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-left: 10px;
     }
 
     .highlight-box {
-      background: #F9FBE7;
-      border: 1px solid #C5E1A5;
-      border-radius: 6px;
-      padding: 14px 18px;
-      margin: 14px 0;
-      font-size: 0.93rem;
+      background: rgba(0,191,165,0.03);
+      border: 1px solid rgba(0,191,165,0.15);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin: 24px 0;
+      font-size: 14px;
+      color: var(--text);
     }
-
     .highlight-box strong {
-      color: #33691E;
+      color: var(--accent);
     }
 
     a {
-      color: #00695C;
+      color: var(--accent);
       text-decoration: none;
-      border-bottom: 1px solid #B2DFDB;
+      transition: opacity 0.2s;
     }
-
     a:hover {
-      color: #004D40;
-      border-bottom-color: #004D40;
+      opacity: 0.8;
+      text-decoration: underline;
     }
 
     .contact-card {
-      background: #F5F5F5;
-      border-radius: 8px;
-      padding: 18px 22px;
-      margin-top: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-top: 18px;
     }
-
     .contact-card p {
       margin: 0;
+      font-size: 14.5px;
     }
 
+    /* ── Footer ── */
     footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 8vw;
       text-align: center;
-      font-size: 0.8rem;
-      color: #9E9E9E;
-      padding: 20px 16px 40px;
-      border-top: 1px solid #EEEEEE;
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+
+    /* ── Responsive Styling ── */
+    @media (max-width: 992px) {
+      .container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .sidebar {
+        display: none; /* Hide sidebar outline on mobile/tablets for simple layout */
+      }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      header { padding: 120px 24px 40px; }
+      .container { padding: 40px 24px 80px; }
     }
   </style>
 </head>
+
 <body>
 
-<header>
-  <h1>SlimShot — Privacy Policy</h1>
-  <p>ForgeLabs &nbsp;·&nbsp; com.forgelabs.slimshot</p>
-</header>
+  <!-- ── Navigation ── -->
+  <nav>
+    <a class="nav-back" href="index.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Back to Home
+    </a>
+    <a class="nav-brand" href="index.html">AQTECH</a>
+  </nav>
 
-<main>
-
-  <div class="intro">
-    Your privacy matters. SlimShot is built on a simple principle: your photos never leave your device. All photo analysis and cleanup happens entirely on-device, with no uploads, no accounts, and no cloud storage.
-  </div>
-
-  <!-- 1. What We Collect -->
-  <section>
-    <h2>1. What We Collect</h2>
-    <p>SlimShot requests only the permissions it needs to perform on-device photo analysis. We do <strong>not</strong> collect, transmit, or store any personal data on external servers.</p>
-    <ul>
-      <li><strong>Photo &amp; media access</strong> — required to scan your gallery for blurry, duplicate, dark, screenshot, and burst photos. All scanning happens locally on your device.</li>
-      <li><strong>Storage access</strong> — required to delete photos you explicitly choose to remove. No file is deleted without your direct confirmation.</li>
-    </ul>
-    <div class="highlight-box">
-      <strong>On-Device Only:</strong> Photos, thumbnails, and analysis results are processed entirely on your device. No image data, metadata, or analysis results are ever transmitted to ForgeLabs or any third party.
+  <!-- ── Header ── -->
+  <header>
+    <div class="header-glow"></div>
+    <div class="app-badge">Forge Labs</div>
+    <h1>SlimShot Privacy Policy</h1>
+    <div class="header-meta">
+      App ID: com.forgelabs.slimshot &bull; Last updated: June 2026
     </div>
-    <p>We do <strong>not</strong> collect:</p>
-    <ul>
-      <li>Your name, email address, or any account information</li>
-      <li>Location data</li>
-      <li>Contacts or call logs</li>
-      <li>Crash reports or analytics events</li>
-    </ul>
-    <p>No account, login, or registration is required to use SlimShot.</p>
-  </section>
+  </header>
 
-  <!-- 2. How We Use It -->
-  <section>
-    <h2>2. How We Use Information</h2>
-    <p>The only processing that takes place is on your device, solely to provide the app's core features:</p>
-    <ul>
-      <li>Scanning your gallery to detect blurry, dark, duplicate, screenshot, and burst photos</li>
-      <li>Displaying categorised results so you can review them before taking any action</li>
-      <li>Permanently deleting only the photos you explicitly select and confirm for deletion</li>
-    </ul>
-    <p>We do not use any information for profiling, marketing, or any purpose beyond operating the app's features described above.</p>
-  </section>
+  <!-- ── Main Container ── -->
+  <main class="container">
+    
+    <!-- Sidebar Index Nav (Desktop Only) -->
+    <aside class="sidebar">
+      <h3>Policy Sections</h3>
+      <a class="sidebar-link active" href="#collect">1. What We Collect</a>
+      <a class="sidebar-link" href="#use">2. How We Use Info</a>
+      <a class="sidebar-link" href="#thirdparty">3. Google AdMob</a>
+      <a class="sidebar-link" href="#security">4. Storage &amp; Security</a>
+      <a class="sidebar-link" href="#children">5. Children's Privacy</a>
+      <a class="sidebar-link" href="#rights">6. Your Rights</a>
+      <a class="sidebar-link" href="#contact">7. Contact Us</a>
+    </aside>
 
-  <!-- 3. Google AdMob -->
-  <section>
-    <h2>3. Google AdMob <span class="badge">Third-Party</span></h2>
-    <p>SlimShot displays advertisements provided by <strong>Google AdMob</strong> (banner and interstitial formats). AdMob is operated by Google LLC and is subject to Google's own privacy practices.</p>
-    <p>To serve and measure ads, AdMob may collect and use:</p>
-    <ul>
-      <li>Advertising identifiers (Android Advertising ID / GAID)</li>
-      <li>Device information (model, OS version, screen size)</li>
-      <li>General network information (IP address, connection type)</li>
-      <li>Ad interaction data (impressions, clicks)</li>
-    </ul>
-    <p>We have configured AdMob with the following settings to protect users:</p>
-    <ul>
-      <li>Maximum ad content rating: <strong>PG (Parental Guidance)</strong></li>
-      <li><strong>tagForUnderAgeOfConsent</strong> is enabled, directing AdMob to treat all ad requests as coming from users who may be under the age of consent and to limit ad personalisation accordingly.</li>
-    </ul>
-    <p>For full details on how Google uses data for advertising purposes, please review Google's Privacy Policy and AdMob's data practices:</p>
-    <ul>
-      <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a></li>
-      <li><a href="https://support.google.com/admob/answer/6128543" target="_blank" rel="noopener">How Google uses data when you use our partners' apps</a></li>
-    </ul>
-    <p>You can reset or opt out of interest-based advertising at any time through your device's advertising settings: <strong>Settings → Google → Ads</strong>.</p>
-  </section>
+    <!-- Main Content -->
+    <div class="content">
+      
+      <div class="intro-card">
+        Your privacy is our core design standard. SlimShot is built on a straightforward principle: your photos never leave your device. All photo analysis, categorization, and memory cleanups happen entirely on-device with zero server uploads, cloud tracking, or mandatory accounts.
+      </div>
 
-  <!-- 4. Data Storage & Security -->
-  <section>
-    <h2>4. Data Storage &amp; Security</h2>
-    <p>Because all processing is performed on-device, there is no external database or server storing your photo data or personal information. App preferences (such as filter settings) are stored only in your device's local app storage and are removed when you uninstall the app.</p>
-    <p>Deleted photos are moved to the system trash or permanently removed, depending on your Android version and device settings. We recommend reviewing the Android Recycle Bin / Trash if you wish to recover a deleted photo shortly after removal.</p>
-    <p>We do not maintain or have access to any copy of your photos at any point.</p>
-  </section>
+      <!-- 1. What We Collect -->
+      <section id="collect">
+        <h2>1. What We Collect</h2>
+        <p>SlimShot requests only the exact permissions needed to process local files. We do <strong>not</strong> collect, transmit, or save any personal data on external databases.</p>
+        <ul>
+          <li><strong>Photo &amp; media access</strong> — Required to read your local gallery index for blurry frames, duplicate sets, burst captures, and screenshots.</li>
+          <li><strong>Storage deletion authorization</strong> — Required to delete individual images or folders that you explicitly choose to remove. No action is taken without your direct confirmation.</li>
+        </ul>
+        <div class="highlight-box">
+          <strong>On-Device Isolation:</strong> Photos, thumbnails, metadata, and analysis results are processed entirely in memory on your physical hardware. No file packets are ever transmitted to Forge Labs or any other third party.
+        </div>
+        <p>We do <strong>not</strong> collect or access:</p>
+        <ul>
+          <li>Your name, address, phone number, or accounts</li>
+          <li>Real-time GPS location parameters</li>
+          <li>Contacts, call logs, or browser records</li>
+          <li>Detailed diagnostic logs or analytics tracker events</li>
+        </ul>
+        <p>No user login or registration is required to operate SlimShot.</p>
+      </section>
 
-  <!-- 5. Children -->
-  <section>
-    <h2>5. Children's Privacy</h2>
-    <p>SlimShot is a general-audience app. We do not knowingly collect personal data from children under the age of 13 (or the applicable age of digital consent in your jurisdiction).</p>
-    <p>As noted above, we have enabled AdMob's <strong>tagForUnderAgeOfConsent</strong> flag to apply additional protections to ad serving for all users. No ad network data collection beyond what is described in Section 3 is permitted through our configuration.</p>
-    <p>If you believe a child has provided personal data through the app in a way not described in this policy, please contact us at the address below and we will investigate promptly.</p>
-  </section>
+      <!-- 2. How We Use Info -->
+      <section id="use">
+        <h2>2. How We Use Information</h2>
+        <p>Any local processing is performed strictly to power the core helper tools of the application:</p>
+        <ul>
+          <li>Sorting your local files to flag blurred results, duplicate series, and screenshot formats.</li>
+          <li>Presenting clear grids so you can manually check items before confirming deletes.</li>
+          <li>Removing the items you select permanently from local file sectors.</li>
+        </ul>
+        <p>We do not compile profiling datasets, run marketing targeting lists, or share usage statistics.</p>
+      </section>
 
-  <!-- 6. Your Rights -->
-  <section>
-    <h2>6. Your Rights</h2>
-    <p>Because SlimShot does not collect or store personal data on external servers, most traditional data-subject rights (access, portability, erasure) are satisfied automatically — there is simply no data held by us to access, correct, or delete.</p>
-    <p>You may, however:</p>
-    <ul>
-      <li><strong>Revoke permissions</strong> at any time via your device's app settings (Settings → Apps → SlimShot → Permissions). Revoking photo or storage access will prevent the app from scanning or deleting photos.</li>
-      <li><strong>Opt out of personalised ads</strong> by resetting your Advertising ID or enabling "Opt out of Ads Personalisation" in your device's Google settings.</li>
-      <li><strong>Uninstall the app</strong> to remove all locally stored app data from your device.</li>
-    </ul>
-    <p>If you are located in the European Economic Area, United Kingdom, or California, and believe you have a data-related concern, you are welcome to contact us using the details below.</p>
-  </section>
+      <!-- 3. Google AdMob -->
+      <section id="thirdparty">
+        <h2>3. Google AdMob <span class="badge">Third-Party</span></h2>
+        <p>SlimShot serves occasional advertisements through <strong>Google AdMob</strong>. AdMob operations are governed by Google LLC's privacy guidelines.</p>
+        <p>To deliver and attribute ad campaigns, the AdMob SDK may record:</p>
+        <ul>
+          <li>Mobile Advertising ID (Android GAID)</li>
+          <li>Device details (hardware model, Android OS build, resolution scale)</li>
+          <li>Network parameters (IP address, data connection speeds)</li>
+          <li>Interactive clicks or impressions recorded within ad blocks</li>
+        </ul>
+        <p>We configure AdMob with enhanced protection values:</p>
+        <ul>
+          <li>Max ad ratings are capped to: <strong>PG (Parental Guidance)</strong>.</li>
+          <li><strong>tagForUnderAgeOfConsent</strong> is enabled, restricting Google from serving personalized ads or tracking profiling parameters on users who may be under the age of digital consent.</li>
+        </ul>
+        <p>For extensive details, please review Google's official privacy pages:</p>
+        <ul>
+          <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a></li>
+          <li><a href="https://support.google.com/admob/answer/6128543" target="_blank" rel="noopener">How Google uses partner app data</a></li>
+        </ul>
+        <p>You can reset your ad identifiers or turn off ad personalization in your settings: <strong>Settings → Google → Ads → Reset/Opt-Out</strong>.</p>
+      </section>
 
-  <!-- 7. Contact -->
-  <section>
-    <h2>7. Contact Us</h2>
-    <p>If you have any questions, concerns, or requests regarding this Privacy Policy or the app's data practices, please reach out:</p>
-    <div class="contact-card">
-      <p><strong>ForgeLabs</strong></p>
-      <p>App: SlimShot (com.forgelabs.slimshot)</p>
-      <p>Email: <a href="mailto:aqeel.tassawar@datelgroup.com">aqeel.tassawar@datelgroup.com</a></p>
+      <!-- 4. Storage & Security -->
+      <section id="security">
+        <h2>4. Data Storage &amp; Security</h2>
+        <p>Since all analysis operates locally, we do not run remote cloud databases to store files. General parameters (like custom filter ranges) are saved locally within standard secure app storage partitions and are purged when the app is uninstalled.</p>
+        <p>Deleted files are moved to the system Recycle Bin or permanently wiped based on your specific Android version settings. We recommend checking your Android Gallery Trash folder if you need to recover any file.</p>
+        <p>We never capture, cache, or maintain backup logs of your gallery media.</p>
+      </section>
+
+      <!-- 5. Children's Privacy -->
+      <section id="children">
+        <h2>5. Children's Privacy</h2>
+        <p>SlimShot is intended for general audiences. We do not knowingly compile personal identifiers from children under the age of 13.</p>
+        <p>As detailed in Section 3, our AdMob integration utilizes strict age-rating filters and flags to prevent interest-based user profiles or tracking of children.</p>
+        <p>If you believe a child has shared information through the app in conflict with these standards, contact us immediately.</p>
+      </section>
+
+      <!-- 6. Your Rights -->
+      <section id="rights">
+        <h2>6. Your Rights</h2>
+        <p>Because SlimShot does not record or maintain your media or personal details on any external database, typical GDPR, UK-GDPR, or CCPA rights (such as data portability or erasure requests) are met by default — we have no data to compile, review, or delete.</p>
+        <p>You can adjust settings directly on your device:</p>
+        <ul>
+          <li><strong>Disable permissions</strong> — Revoke gallery or storage read/write parameters under Settings → Apps → SlimShot.</li>
+          <li><strong>Reset Ad IDs</strong> — Turn off personalized targeting metrics inside Google Ads settings.</li>
+          <li><strong>Uninstall</strong> — Purges all temporary local cache and app configurations from your memory.</li>
+        </ul>
+      </section>
+
+      <!-- 7. Contact Us -->
+      <section id="contact">
+        <h2>7. Contact Us</h2>
+        <p>If you have any inquiries regarding this policy, do not hesitate to contact our developer desk:</p>
+        <div class="contact-card">
+          <p><strong>Forge Labs / AQTECH</strong></p>
+          <p>Product Support: com.forgelabs.slimshot</p>
+          <p>Email: <a href="mailto:aqeel.tassawar@datelgroup.com">aqeel.tassawar@datelgroup.com</a></p>
+        </div>
+      </section>
+
     </div>
-    <p style="margin-top: 14px;">We aim to respond to all enquiries within 5 business days.</p>
-  </section>
+  </main>
 
-  <!-- 8. Last Updated -->
-  <section>
-    <h2>8. Last Updated</h2>
-    <p>This Privacy Policy was last updated in <strong>May 2025</strong>. We may update this policy from time to time. When we do, the revised version will be published at the same URL and the "Last Updated" date will be changed. Continued use of the app after any changes constitutes your acceptance of the updated policy.</p>
-  </section>
+  <!-- ── Footer ── -->
+  <footer>
+    &copy; 2026 Forge Labs &bull; AQTECH &bull; All rights reserved.
+  </footer>
 
-</main>
+  <!-- Sidebar tracking active section scrollspy -->
+  <script>
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.sidebar-link');
 
-<footer>
-  &copy; 2025 ForgeLabs &nbsp;·&nbsp; SlimShot &nbsp;·&nbsp; com.forgelabs.slimshot
-</footer>
+    window.addEventListener('scroll', () => {
+      let currentSectionId = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 120;
+        if (window.scrollY >= top) {
+          currentSectionId = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentSectionId}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>

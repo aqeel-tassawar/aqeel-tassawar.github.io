@@ -3,275 +3,490 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privacy Policy – Origami Flight Lab</title>
+  <title>Privacy Policy — Origami Flight Lab</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@600;800;900&display=swap" rel="stylesheet" />
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --bg:          #030308;
+      --bg-2:        #080816;
+      --surface:     rgba(255,255,255,0.03);
+      --surface-hover: rgba(255,255,255,0.06);
+      --border:      rgba(255,255,255,0.07);
+      --text:        #f1f1f7;
+      --muted:       #8a8aab;
+      --accent:      #1e88e5;
+      --accent-dim:  rgba(30,136,229,0.12);
+      --font-outfit: 'Outfit', sans-serif;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: #ffffff;
-      color: #212121;
-      font-size: 16px;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       line-height: 1.7;
+      overflow-x: hidden;
     }
 
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8vw;
+      height: 70px;
+      background: rgba(3,3,8,0.75);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-back {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-back:hover {
+      color: var(--text);
+    }
+    .nav-brand {
+      font-family: var(--font-outfit);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* ── Header ── */
     header {
-      background: linear-gradient(135deg, #0D47A1 0%, #1565C0 60%, #1976D2 100%);
-      color: #ffffff;
-      padding: 40px 24px 32px;
-      text-align: center;
-    }
-
-    header .plane {
-      font-size: 2.2rem;
-      margin-bottom: 8px;
-    }
-
-    header h1 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    header p {
-      margin-top: 6px;
-      font-size: 0.9rem;
-      opacity: 0.85;
-    }
-
-    main {
-      max-width: 760px;
+      padding: 140px 8vw 60px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 32px 20px 64px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .header-glow {
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 300px;
+      background: radial-gradient(ellipse at center, rgba(30,136,229,0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .app-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 50px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(30,136,229,0.25);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-family: var(--font-outfit);
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .header-meta {
+      font-size: 14px;
+      color: var(--muted);
     }
 
-    .intro {
-      background: #E3F2FD;
-      border-left: 4px solid #1565C0;
-      border-radius: 4px;
-      padding: 16px 20px;
-      margin-bottom: 36px;
-      font-size: 0.95rem;
-      color: #0D47A1;
+    /* ── Main Container ── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 8vw 100px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* Sticky Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 110px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sidebar h3 {
+      font-family: var(--font-outfit);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .sidebar-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 6px 0;
+      border-left: 2px solid transparent;
+      padding-left: 14px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .sidebar-link:hover, .sidebar-link.active {
+      color: var(--text);
+      border-left-color: var(--accent);
+    }
+
+    /* Content Area */
+    .content {
+      max-width: 760px;
+    }
+    .intro-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      font-size: 16px;
+      color: #e2e2e9;
+      margin-bottom: 48px;
+      position: relative;
+    }
+    .intro-card::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0; width: 4px;
+      background: var(--accent);
+      border-radius: 4px 0 0 4px;
     }
 
     section {
-      margin-bottom: 36px;
+      margin-bottom: 56px;
+      scroll-margin-top: 110px;
     }
-
-    h2 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #1565C0;
-      margin-bottom: 10px;
-      padding-bottom: 6px;
-      border-bottom: 2px solid #E3F2FD;
+    section h2 {
+      font-family: var(--font-outfit);
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
-
-    p {
-      margin-bottom: 10px;
-      color: #333333;
+    section h2::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
     }
-
-    ul {
-      margin: 8px 0 10px 20px;
-      color: #333333;
+    section p {
+      color: var(--muted);
+      margin-bottom: 18px;
+      font-size: 15px;
     }
-
-    ul li {
-      margin-bottom: 6px;
+    section ul {
+      margin-left: 20px;
+      margin-bottom: 20px;
+      color: var(--muted);
     }
-
+    section li {
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+    strong {
+      color: #fff;
+      font-weight: 600;
+    }
+    
     .badge {
       display: inline-block;
-      background: #1565C0;
-      color: #ffffff;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 2px 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
       border-radius: 12px;
-      vertical-align: middle;
-      margin-left: 8px;
-      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-left: 10px;
     }
 
     .highlight-box {
-      background: #F1F8E9;
-      border: 1px solid #AED581;
-      border-radius: 6px;
-      padding: 14px 18px;
-      margin: 14px 0;
-      font-size: 0.93rem;
+      background: rgba(30,136,229,0.03);
+      border: 1px solid rgba(30,136,229,0.15);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin: 24px 0;
+      font-size: 14px;
+      color: var(--text);
     }
-
     .highlight-box strong {
-      color: #33691E;
+      color: var(--accent);
     }
 
     a {
-      color: #1565C0;
+      color: var(--accent);
       text-decoration: none;
-      border-bottom: 1px solid #BBDEFB;
+      transition: opacity 0.2s;
     }
-
     a:hover {
-      color: #0D47A1;
-      border-bottom-color: #0D47A1;
+      opacity: 0.8;
+      text-decoration: underline;
     }
 
     .contact-card {
-      background: #F5F5F5;
-      border-radius: 8px;
-      padding: 18px 22px;
-      margin-top: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-top: 18px;
     }
-
     .contact-card p {
       margin: 0;
+      font-size: 14.5px;
     }
 
+    /* ── Footer ── */
     footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 8vw;
       text-align: center;
-      font-size: 0.8rem;
-      color: #9E9E9E;
-      padding: 20px 16px 40px;
-      border-top: 1px solid #EEEEEE;
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+
+    /* ── Responsive Styling ── */
+    @media (max-width: 992px) {
+      .container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .sidebar {
+        display: none;
+      }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      header { padding: 120px 24px 40px; }
+      .container { padding: 40px 24px 80px; }
     }
   </style>
 </head>
+
 <body>
 
-<header>
-  <div class="plane">✈️</div>
-  <h1>Origami Flight Lab — Privacy Policy</h1>
-  <p>Forge Studios &nbsp;·&nbsp; com.forgestudios.origami_flight_lab</p>
-</header>
+  <!-- ── Navigation ── -->
+  <nav>
+    <a class="nav-back" href="index.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Back to Home
+    </a>
+    <a class="nav-brand" href="index.html">AQTECH</a>
+  </nav>
 
-<main>
-
-  <div class="intro">
-    Your privacy matters. Origami Flight Lab stores all game progress locally on your device. We do not operate any servers, require accounts, or collect personal information. The only external services used are Google AdMob (advertising) and Google Play Billing (in-app purchases), both of which are governed by Google's own privacy practices.
-  </div>
-
-  <!-- 1. What We Collect -->
-  <section>
-    <h2>1. What We Collect</h2>
-    <p>Origami Flight Lab does <strong>not</strong> collect, transmit, or store any personal data on external servers. All game state — progress, coins, stars, achievements, leaderboard scores, settings — is saved only to your device's local storage via Android's SharedPreferences system.</p>
-    <p>The following device capabilities are used solely to operate the game:</p>
-    <ul>
-      <li><strong>Accelerometer / motion sensor</strong> — used to detect phone tilt for optional tilt-based flight control. Sensor readings are processed in real time and never stored or transmitted.</li>
-      <li><strong>Vibration</strong> — used for short haptic feedback on events (collisions, achievements). No data is collected.</li>
-      <li><strong>Internet access</strong> — required for Google AdMob to serve ads and for Google Play Billing to process purchases. No game data is transmitted over this connection.</li>
-    </ul>
-    <p>We do <strong>not</strong> collect:</p>
-    <ul>
-      <li>Your name, email address, or any account information</li>
-      <li>Location data</li>
-      <li>Contacts or call logs</li>
-      <li>Photos, camera, or microphone access</li>
-      <li>Crash reports or analytics (Firebase is not currently active)</li>
-    </ul>
-    <p>No account, login, or registration is required to play Origami Flight Lab.</p>
-  </section>
-
-  <!-- 2. Local Data Storage -->
-  <section>
-    <h2>2. Local Data Storage</h2>
-    <p>The following data is saved to your device's local storage only:</p>
-    <ul>
-      <li>Game progress (current level, coins, stars, prestige count)</li>
-      <li>Unlocked planes and upgrades</li>
-      <li>Achievement status and leaderboard scores</li>
-      <li>Daily streak, daily challenge state, and mission progress</li>
-      <li>Audio preferences (music/SFX mute state)</li>
-      <li>Personal best flight recordings (ghost replay data)</li>
-    </ul>
-    <div class="highlight-box">
-      <strong>On-Device Only:</strong> None of the above data is ever uploaded to Forge Studios or any third-party server. It exists solely on your device and is removed when you uninstall the app.
+  <!-- ── Header ── -->
+  <header>
+    <div class="header-glow"></div>
+    <div class="app-badge">Forge Studios</div>
+    <h1>Origami Flight Lab Privacy Policy</h1>
+    <div class="header-meta">
+      App ID: com.forgestudios.origami_flight_lab &bull; Last updated: June 2026
     </div>
-  </section>
+  </header>
 
-  <!-- 3. Google AdMob -->
-  <section>
-    <h2>3. Google AdMob <span class="badge">Third-Party</span></h2>
-    <p>Origami Flight Lab displays advertisements provided by <strong>Google AdMob</strong> (interstitial and rewarded video formats). AdMob is operated by Google LLC and is subject to Google's own privacy practices.</p>
-    <p>To serve and measure ads, AdMob may collect and use:</p>
-    <ul>
-      <li>Advertising identifiers (Android Advertising ID / GAID)</li>
-      <li>Device information (model, OS version, screen size)</li>
-      <li>General network information (IP address, connection type)</li>
-      <li>Ad interaction data (impressions, clicks)</li>
-    </ul>
-    <p>We have configured AdMob with the following settings:</p>
-    <ul>
-      <li>Maximum ad content rating: <strong>G (General Audiences)</strong></li>
-      <li><strong>tagForChildDirectedTreatment</strong> is enabled, applying COPPA-compliant handling to all ad requests.</li>
-    </ul>
-    <p>Users who purchase the "Remove Ads" in-app product will no longer receive any AdMob ads.</p>
-    <p>For full details on how Google uses data for advertising purposes:</p>
-    <ul>
-      <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a></li>
-      <li><a href="https://support.google.com/admob/answer/6128543" target="_blank" rel="noopener">How Google uses data when you use our partners' apps</a></li>
-    </ul>
-    <p>You can reset or opt out of interest-based advertising at any time: <strong>Settings → Google → Ads → Reset Advertising ID</strong> or <strong>Opt out of Ads Personalisation</strong>.</p>
-  </section>
+  <!-- ── Main Container ── -->
+  <main class="container">
+    
+    <!-- Sidebar Index Nav (Desktop Only) -->
+    <aside class="sidebar">
+      <h3>Policy Sections</h3>
+      <a class="sidebar-link active" href="#collect">1. What We Collect</a>
+      <a class="sidebar-link" href="#storage">2. Local Data Storage</a>
+      <a class="sidebar-link" href="#admob">3. Google AdMob</a>
+      <a class="sidebar-link" href="#billing">4. In-App Purchases</a>
+      <a class="sidebar-link" href="#children">5. Children's Privacy</a>
+      <a class="sidebar-link" href="#rights">6. Your Rights</a>
+      <a class="sidebar-link" href="#changes">7. Policy Changes</a>
+      <a class="sidebar-link" href="#contact">8. Contact Us</a>
+    </aside>
 
-  <!-- 4. In-App Purchases -->
-  <section>
-    <h2>4. In-App Purchases <span class="badge">Third-Party</span></h2>
-    <p>Origami Flight Lab offers optional in-app purchases (coins, stars, plane unlocks, ad removal) processed entirely through <strong>Google Play Billing</strong>. Forge Studios does not handle, store, or have access to any payment card information or billing details.</p>
-    <p>All purchase transactions are governed by Google Play's terms of service and privacy policy. For refund requests, please use Google Play's standard refund process.</p>
-  </section>
+    <!-- Main Content -->
+    <div class="content">
+      
+      <div class="intro-card">
+        Your privacy matters. Origami Flight Lab stores all game progress locally on your device. We do not operate remote databases, require accounts, or collect personal information. The only external services used are Google AdMob (advertising) and Google Play Billing (in-app purchases), both of which are governed by Google's own privacy practices.
+      </div>
 
-  <!-- 5. Children's Privacy -->
-  <section>
-    <h2>5. Children's Privacy</h2>
-    <p>Origami Flight Lab is a family-friendly game with an expected IARC rating of Everyone (E). We do not knowingly collect personal data from children under the age of 13.</p>
-    <p>As noted in Section 3, we have enabled AdMob's <strong>tagForChildDirectedTreatment</strong> flag, which applies additional restrictions to ad serving in compliance with COPPA and similar regulations worldwide.</p>
-    <p>If you believe a child has provided personal data through the app, please contact us at the address below.</p>
-  </section>
+      <!-- 1. What We Collect -->
+      <section id="collect">
+        <h2>1. What We Collect</h2>
+        <p>Origami Flight Lab does <strong>not</strong> collect, transmit, or store any personal data on external servers. All game state — progress, coins, stars, achievements, settings — is saved only to your device's local storage via Android's SharedPreferences system.</p>
+        <p>The following device capabilities are used solely to operate the game:</p>
+        <ul>
+          <li><strong>Accelerometer / motion sensor</strong> — Used to detect phone tilt for optional tilt-based flight control. Sensor readings are processed in real time and never stored or transmitted.</li>
+          <li><strong>Vibration</strong> — Used for short haptic feedback on events (collisions, achievements). No data is collected.</li>
+          <li><strong>Internet access</strong> — Required for Google AdMob to serve ads and for Google Play Billing to process purchases. No game data is transmitted over this connection.</li>
+        </ul>
+        <p>We do <strong>not</strong> collect:</p>
+        <ul>
+          <li>Your name, email address, or any account information</li>
+          <li>Location data</li>
+          <li>Contacts or call logs</li>
+          <li>Photos, camera, or microphone access</li>
+          <li>Crash reports or analytics (Firebase is not currently active)</li>
+        </ul>
+        <p>No user login or registration is required to play Origami Flight Lab.</p>
+      </section>
 
-  <!-- 6. Your Rights -->
-  <section>
-    <h2>6. Your Rights</h2>
-    <p>Because Origami Flight Lab does not collect or store personal data on external servers, most data-subject rights are satisfied automatically — there is no data held by us to access, correct, or delete.</p>
-    <p>You may at any time:</p>
-    <ul>
-      <li><strong>Clear game data</strong> — via Settings → Apps → Origami Flight Lab → Clear Data (this resets all progress permanently).</li>
-      <li><strong>Opt out of personalised ads</strong> — via your device's Google ad settings.</li>
-      <li><strong>Uninstall the app</strong> — removes all locally stored game data from your device.</li>
-    </ul>
-    <p>If you are located in the EEA, UK, or California and have a data-related concern, please contact us using the details below.</p>
-  </section>
+      <!-- 2. Local Data Storage -->
+      <section id="storage">
+        <h2>2. Local Data Storage</h2>
+        <p>The following data is saved to your device's local storage only:</p>
+        <ul>
+          <li>Game progress (current level, coins, stars, prestige count)</li>
+          <li>Unlocked planes and upgrades</li>
+          <li>Achievement status and leaderboard scores</li>
+          <li>Daily streak, daily challenge state, and mission progress</li>
+          <li>Audio preferences (music/SFX mute state)</li>
+          <li>Personal best flight recordings (ghost replay data)</li>
+        </ul>
+        <div class="highlight-box">
+          <strong>On-Device Only:</strong> None of the above data is ever uploaded to Forge Studios or any third-party server. It exists solely on your device and is removed when you uninstall the app.
+        </div>
+      </section>
 
-  <!-- 7. Changes to This Policy -->
-  <section>
-    <h2>7. Changes to This Policy</h2>
-    <p>We may update this Privacy Policy from time to time. When we do, the revised version will be published at this URL and the "Last Updated" date below will be changed. Continued use of the app after any update constitutes acceptance of the revised policy.</p>
-  </section>
+      <!-- 3. Google AdMob -->
+      <section id="admob">
+        <h2>3. Google AdMob <span class="badge">Third-Party</span></h2>
+        <p>Origami Flight Lab displays advertisements provided by <strong>Google AdMob</strong> (interstitial and rewarded video formats). AdMob is operated by Google LLC and is subject to Google's own privacy practices.</p>
+        <p>To serve and measure ads, AdMob may collect and use:</p>
+        <ul>
+          <li>Advertising identifiers (Android Advertising ID / GAID)</li>
+          <li>Device information (model, OS version, screen size)</li>
+          <li>General network information (IP address, connection type)</li>
+          <li>Ad interaction data (impressions, clicks)</li>
+        </ul>
+        <p>We have configured AdMob with the following settings:</p>
+        <ul>
+          <li>Maximum ad content rating: <strong>G (General Audiences)</strong></li>
+          <li><strong>tagForChildDirectedTreatment</strong> is enabled, applying COPPA-compliant handling to all ad requests.</li>
+        </ul>
+        <p>Users who purchase the "Remove Ads" in-app product will no longer receive any AdMob ads.</p>
+        <p>For full details on how Google uses data for advertising purposes:</p>
+        <ul>
+          <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a></li>
+          <li><a href="https://support.google.com/admob/answer/6128543" target="_blank" rel="noopener">How Google uses data when you use our partners' apps</a></li>
+        </ul>
+        <p>You can reset or opt out of interest-based advertising at any time: <strong>Settings → Google → Ads → Reset Advertising ID</strong> or <strong>Opt out of Ads Personalisation</strong>.</p>
+      </section>
 
-  <!-- 8. Contact -->
-  <section>
-    <h2>8. Contact Us</h2>
-    <p>If you have any questions or concerns about this Privacy Policy or the app's data practices, please contact:</p>
-    <div class="contact-card">
-      <p><strong>Forge Studios / AQTECH</strong></p>
-      <p>App: Origami Flight Lab (com.forgestudios.origami_flight_lab)</p>
-      <p>Email: <a href="mailto:aqeel.qureshius@gmail.com">aqeel.qureshius@gmail.com</a></p>
+      <!-- 4. In-App Purchases -->
+      <section id="billing">
+        <h2>4. In-App Purchases <span class="badge">Third-Party</span></h2>
+        <p>Origami Flight Lab offers optional in-app purchases (coins, stars, plane unlocks, ad removal) processed entirely through <strong>Google Play Billing</strong>. Forge Studios does not handle, store, or have access to any payment card information or billing details.</p>
+        <p>All purchase transactions are governed by Google Play's terms of service and privacy policy. For refund requests, please use Google Play's standard refund process.</p>
+      </section>
+
+      <!-- 5. Children's Privacy -->
+      <section id="children">
+        <h2>5. Children's Privacy</h2>
+        <p>Origami Flight Lab is a family-friendly game with an expected IARC rating of Everyone (E). We do not knowingly collect personal data from children under the age of 13.</p>
+        <p>As noted in Section 3, we have enabled AdMob's <strong>tagForChildDirectedTreatment</strong> flag, which applies additional restrictions to ad serving in compliance with COPPA and similar regulations worldwide.</p>
+        <p>If you believe a child has provided personal data through the app, please contact us at the address below.</p>
+      </section>
+
+      <!-- 6. Your Rights -->
+      <section id="rights">
+        <h2>6. Your Rights</h2>
+        <p>Because Origami Flight Lab does not collect or store personal data on external servers, most data-subject rights are satisfied automatically — there is no data held by us to access, correct, or delete.</p>
+        <p>You may at any time:</p>
+        <ul>
+          <li><strong>Clear game data</strong> — Via Settings → Apps → Origami Flight Lab → Clear Data (this resets all progress permanently).</li>
+          <li><strong>Opt out of personalised ads</strong> — Via your device's Google ad settings.</li>
+          <li><strong>Uninstall the app</strong> — Removes all locally stored game data from your device.</li>
+        </ul>
+        <p>If you are located in the EEA, UK, or California and have a data-related concern, please contact us using the details below.</p>
+      </section>
+
+      <!-- 7. Policy Changes -->
+      <section id="changes">
+        <h2>7. Changes to This Policy</h2>
+        <p>We may update this Privacy Policy from time to time. When we do, the revised version will be published at this URL and the "Last Updated" date will be changed. Continued use of the app after any update constitutes acceptance of the revised policy.</p>
+      </section>
+
+      <!-- 8. Contact Us -->
+      <section id="contact">
+        <h2>8. Contact Us</h2>
+        <p>If you have any questions or concerns about this Privacy Policy or the app's data practices, please contact:</p>
+        <div class="contact-card">
+          <p><strong>Forge Studios / AQTECH</strong></p>
+          <p>Product Support: Origami Flight Lab (com.forgestudios.origami_flight_lab)</p>
+          <p>Email: <a href="mailto:aqeel.qureshius@gmail.com">aqeel.qureshius@gmail.com</a></p>
+        </div>
+        <p style="margin-top: 14px;">We aim to respond to all enquiries within 5 business days.</p>
+      </section>
+
     </div>
-    <p style="margin-top: 14px;">We aim to respond to all enquiries within 5 business days.</p>
-  </section>
+  </main>
 
-  <section>
-    <h2>Last Updated</h2>
-    <p>This Privacy Policy was last updated in <strong>June 2026</strong>.</p>
-  </section>
+  <!-- ── Footer ── -->
+  <footer>
+    &copy; 2026 Forge Studios &bull; AQTECH &bull; All rights reserved.
+  </footer>
 
-</main>
+  <!-- Sidebar tracking active section scrollspy -->
+  <script>
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.sidebar-link');
 
-<footer>
-  &copy; 2026 Forge Studios / AQTECH &nbsp;·&nbsp; Origami Flight Lab &nbsp;·&nbsp; com.forgestudios.origami_flight_lab
-</footer>
+    window.addEventListener('scroll', () => {
+      let currentSectionId = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 120;
+        if (window.scrollY >= top) {
+          currentSectionId = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentSectionId}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
