@@ -401,6 +401,7 @@
     .art-potion .card-art-bg  { background: linear-gradient(135deg, #051a0e 0%, #104024 50%, #27ae60 100%); }
     .art-swarm  .card-art-bg  { background: linear-gradient(135deg, #120000 0%, #401000 50%, #b82e00 100%); }
     .art-origami .card-art-bg { background: linear-gradient(135deg, #021a35 0%, #083c74 50%, #1e88e5 100%); }
+    .art-voxel   .card-art-bg { background: linear-gradient(135deg, #021a22 0%, #004d61 50%, #00e5ff 100%); }
     .art-slim   .card-art-bg  { background: linear-gradient(135deg, #001a12 0%, #003a28 50%, #00795c 100%); }
     .art-sparks .card-art-bg  { background: linear-gradient(135deg, #300c05 0%, #701e10 50%, #e65100 100%); }
 
@@ -1330,6 +1331,39 @@
           </div>
         </div>
       </article>
+
+      <!-- Voxel Flight 3D -->
+      <article class="card studios art-voxel" data-app-id="voxel">
+        <div class="card-art">
+          <div class="card-art-bg"></div>
+          <div class="card-art-icon-svg">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-platform">Android &bull; 3D Flight Action</p>
+          <h3 class="card-name">Voxel Flight 3D</h3>
+          <p class="card-desc">
+            High-speed 3D voxel canyon flyer. Pilot custom skin jets, execute precision gate grazes, trigger hyper-speed boost, and conquer seeded daily skyline routes.
+          </p>
+          <div class="card-tags">
+            <span class="tag">3D Vector Flight</span>
+            <span class="tag">Canyon Action</span>
+            <span class="tag">Daily Routes</span>
+          </div>
+          <div class="card-actions">
+            <a class="card-cta studios" href="https://play.google.com/store/apps/details?id=com.forgestudios.voxelflight3d" target="_blank" rel="noopener">
+              <svg class="play-icon" viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.75.75 0 01-1.11-.66V2.474a.75.75 0 011.11-.66zm10.89 8.893l2.84-2.84 3.28 1.9a1.5 1.5 0 010 2.586l-3.28 1.9-2.84-2.84L12.414 12l2.085-1.293z"/></svg>
+              Get on Play Store
+            </a>
+            <button class="card-details-btn" aria-label="View details">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -1558,6 +1592,7 @@
           <li><a href="https://play.google.com/store/apps/details?id=com.forgestudios.potionforge" target="_blank" rel="noopener">Potion Forge</a></li>
           <li><a href="https://play.google.com/store/apps/details?id=com.forgestudios.swarmsurvivors" target="_blank" rel="noopener">Swarm Survivors</a></li>
           <li><a href="https://play.google.com/store/apps/details?id=com.forgestudios.origami_flight_lab" target="_blank" rel="noopener">Origami Flight Lab</a></li>
+          <li><a href="https://play.google.com/store/apps/details?id=com.forgestudios.voxelflight3d" target="_blank" rel="noopener">Voxel Flight 3D</a></li>
           <li><a href="https://play.google.com/store/apps/details?id=com.forgelabs.slimshot" target="_blank" rel="noopener">SlimShot</a></li>
           <li><a href="https://play.google.com/store/apps/details?id=com.forgeacademy.mathsparks" target="_blank" rel="noopener">Maths Sparks</a></li>
         </ul>
@@ -1567,6 +1602,7 @@
         <ul>
           <li><a href="/slimshot-privacy.html">SlimShot Privacy</a></li>
           <li><a href="/origami-flight-lab-privacy.html">Origami Flight Lab Privacy</a></li>
+          <li><a href="/voxel-flight-3d-privacy.html">Voxel Flight 3D Privacy</a></li>
           <li><a href="/mathsparks-privacy.html">Maths Sparks Privacy</a></li>
         </ul>
       </div>
@@ -1661,6 +1697,24 @@
           "Cozy ambient acoustic soundtracks",
           "No stress, no scores, just flying",
           "Beautiful custom color palettes"
+        ]
+      },
+      voxel: {
+        title: "Voxel Flight 3D",
+        subtitle: "Android • 3D Canyon Flyer",
+        logoSvg: '<svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
+        colorClass: "studios",
+        playLink: "https://play.google.com/store/apps/details?id=com.forgestudios.voxelflight3d",
+        slides: [
+          { title: "High-Speed Canyon Flight", desc: "Navigate narrow district canyons, avoid dynamic building blockades, and conquer 5 world themes." },
+          { title: "Mastery Flight Physics", desc: "Perform double-swipe barrel rolls, close-call gate grazes, and tap-triggered hyper boost." },
+          { title: "Daily Seeded Routes", desc: "Compete on deterministic daily routes with attempt limits and post-flight share cards." }
+        ],
+        features: [
+          "60 FPS custom vector 3D rendering pipeline",
+          "5 distinct district environments with bloom & rain effects",
+          "Zero-paywall skill progression with unlockable aircraft & trails",
+          "Daily Route mode with ghost replay playback"
         ]
       },
       slimshot: {

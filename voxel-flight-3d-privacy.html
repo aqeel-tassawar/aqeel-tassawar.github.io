@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Voxel Flight 3D</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@600;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #030308;
+      --bg-2:        #080816;
+      --surface:     rgba(255,255,255,0.03);
+      --surface-hover: rgba(255,255,255,0.06);
+      --border:      rgba(255,255,255,0.07);
+      --text:        #f1f1f7;
+      --muted:       #8a8aab;
+      --accent:      #00e5ff;
+      --accent-dim:  rgba(0,229,255,0.12);
+      --font-outfit: 'Outfit', sans-serif;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8vw;
+      height: 70px;
+      background: rgba(3,3,8,0.75);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-back {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-back:hover {
+      color: var(--text);
+    }
+    .nav-brand {
+      font-family: var(--font-outfit);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* ── Header ── */
+    header {
+      padding: 140px 8vw 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .header-glow {
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 300px;
+      background: radial-gradient(ellipse at center, rgba(0,229,255,0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .app-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 50px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(0,229,255,0.25);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-family: var(--font-outfit);
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .header-meta {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* ── Main Container ── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 8vw 100px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* Sticky Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 110px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sidebar h3 {
+      font-family: var(--font-outfit);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .sidebar-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 6px 0;
+      border-left: 2px solid transparent;
+      padding-left: 14px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .sidebar-link:hover, .sidebar-link.active {
+      color: var(--text);
+      border-left-color: var(--accent);
+    }
+
+    /* Content Area */
+    .content {
+      max-width: 760px;
+    }
+    .intro-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      font-size: 16px;
+      color: #e2e2e9;
+      margin-bottom: 48px;
+      position: relative;
+    }
+    .intro-card::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0; width: 4px;
+      background: var(--accent);
+      border-radius: 4px 0 0 4px;
+    }
+
+    section {
+      margin-bottom: 56px;
+      scroll-margin-top: 110px;
+    }
+    section h2 {
+      font-family: var(--font-outfit);
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    section h2::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    section p {
+      color: var(--muted);
+      margin-bottom: 18px;
+      font-size: 15px;
+    }
+    section ul {
+      margin-left: 20px;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    section li {
+      margin-bottom: 8px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 8vw;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    @media (max-width: 850px) {
+      .container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .sidebar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <a href="https://aqeel-tassawar.github.io/" class="nav-back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to Studio
+    </a>
+    <a href="https://aqeel-tassawar.github.io/" class="nav-brand">AQTECH</a>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    <div class="header-glow"></div>
+    <div class="app-badge">Forge Studios — Game Privacy</div>
+    <h1>Privacy Policy for Voxel Flight 3D</h1>
+    <div class="header-meta">Last Updated: July 31, 2026 • Applies to Android & iOS Builds</div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container">
+    
+    <!-- Sticky Sidebar Navigation -->
+    <aside class="sidebar">
+      <h3>Policy Navigation</h3>
+      <a href="#overview" class="sidebar-link active">1. Overview</a>
+      <a href="#data-collection" class="sidebar-link">2. Data Collection</a>
+      <a href="#advertising" class="sidebar-link">3. Advertising & Analytics</a>
+      <a href="#local-storage" class="sidebar-link">4. Local Storage</a>
+      <a href="#children" class="sidebar-link">5. Children's Privacy</a>
+      <a href="#security" class="sidebar-link">6. Data Security</a>
+      <a href="#contact" class="sidebar-link">7. Developer Contact</a>
+    </aside>
+
+    <!-- Main Policy Content -->
+    <main class="content">
+      
+      <div class="intro-card">
+        <strong>Voxel Flight 3D</strong> is developed by <strong>AQTECH (Forge Studios)</strong>. We respect your privacy and are committed to protecting it. This Privacy Policy details how our game handles user data, advertising SDKs, and local device storage.
+      </div>
+
+      <!-- Section 1: Overview -->
+      <section id="overview">
+        <h2>1. Overview & Commitment</h2>
+        <p>Voxel Flight 3D is an arcade 3D flight action game designed for seamless offline play and casual enjoyment. We do not require account registration, social media logins, email addresses, or personal identity information to play the game.</p>
+      </section>
+
+      <!-- Section 2: Data Collection -->
+      <section id="data-collection">
+        <h2>2. Data Collection & Processing</h2>
+        <p>We do <strong>NOT</strong> collect, harvest, sell, or rent any Personally Identifiable Information (PII) such as your name, email, phone number, address, or biometric data.</p>
+        <p>Gameplay metrics (such as high scores, unlocked aircraft skins, equipped trail effects, and daily attempt timestamps) are stored <strong>strictly on your local device</strong>.</p>
+      </section>
+
+      <!-- Section 3: Advertising & Analytics -->
+      <section id="advertising">
+        <h2>3. Third-Party Advertising & Analytics</h2>
+        <p>Voxel Flight 3D incorporates Google Mobile Ads (AdMob) to display voluntary rewarded video ads and periodic frequency-capped interstitial ads after gameplay sessions.</p>
+        <ul>
+          <li><strong>Google AdMob:</strong> AdMob may collect pseudonymous identifiers (such as Advertising ID) to deliver frequency-capped advertisements and prevent fraud. For detailed information, please review <a href="https://policies.google.com/privacy" style="color: var(--accent);">Google's Privacy & Terms</a>.</li>
+          <li><strong>Rewarded Ads:</strong> Watching rewarded video ads (e.g. for coin doubling or daily retries) is strictly voluntary and user-initiated.</li>
+        </ul>
+      </section>
+
+      <!-- Section 4: Local Storage -->
+      <section id="local-storage">
+        <h2>4. On-Device Local Storage</h2>
+        <p>Voxel Flight 3D uses standard on-device Key-Value storage (SharedPreferences / NSUserDefaults) to store your:</p>
+        <ul>
+          <li>Stage clearing progress and high score records</li>
+          <li>Unlocked aircraft skins, custom trails, and coin balances</li>
+          <li>Audio, music, haptic, and camera preferences</li>
+          <li>Deterministic daily route attempt timestamps</li>
+        </ul>
+        <p>Uninstalling the application or clearing app data will erase these local save records.</p>
+      </section>
+
+      <!-- Section 5: Children's Privacy -->
+      <section id="children">
+        <h2>5. Children's Privacy (COPPA)</h2>
+        <p>Voxel Flight 3D is designed for general audiences. We comply with the Children's Online Privacy Protection Act (COPPA). We do not knowingly solicit or collect personal information from children under the age of 13. If you believe a child has provided us with personal information, please contact us immediately so we can take steps to delete it.</p>
+      </section>
+
+      <!-- Section 6: Security -->
+      <section id="security">
+        <h2>6. Data Security</h2>
+        <p>Because Voxel Flight 3D processes gameplay data locally on your device without cloud server uploads, your game progress remains secure within your operating system's application sandbox.</p>
+      </section>
+
+      <!-- Section 7: Contact -->
+      <section id="contact">
+        <h2>7. Contact & Developer Support</h2>
+        <p>If you have any questions or concerns regarding this Privacy Policy or Voxel Flight 3D, please contact our support team:</p>
+        <p><strong>AQTECH — Forge Studios</strong><br />
+        Developer Support: <a href="mailto:aqeel.tassawar@gmail.com" style="color: var(--accent);">aqeel.tassawar@gmail.com</a><br />
+        Website: <a href="https://aqeel-tassawar.github.io/" style="color: var(--accent);">https://aqeel-tassawar.github.io/</a></p>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2026 AQTECH. All rights reserved. <a href="https://aqeel-tassawar.github.io/">Back to Studio Homepage</a>
+  </footer>
+
+</body>
+</html>
